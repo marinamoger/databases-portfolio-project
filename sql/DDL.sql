@@ -4,7 +4,7 @@
 * Project Group: 45
 * Group Members: Lei Feng, Marina Moger
 * Due Date: 11/06/2025
-* Description: Create and populate tables for the project.
+* Description: Create and populate tables for the project database.
 * Citation: All code in this file without citation is original.
 * Import: Please drop all existing tables before importing this file via
 *         phpMyAdmin or the MySQL CLI using the source query.
