@@ -1,9 +1,9 @@
 /*
-* Project Step 2 Draft Data Definition Queries
+* Project Step 3 Draft Data Definition Queries
 * Project Name: Old Mike’s Car Full-Service Transaction Management System
 * Project Group: 45
 * Group Members: Lei Feng, Marina Moger
-* Due Date: 10/30/2025
+* Due Date: 11/06/2025
 * Description: Create and populate tables for the project.
 * Citation: All code in this file without citation is original.
 * Import: Please drop all existing tables before importing this file via
