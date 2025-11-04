@@ -17,8 +17,9 @@
 -- Create table Locations
 CREATE TABLE Locations (
   id_location int AUTO_INCREMENT UNIQUE NOT NULL,
-  name varchar(45) NOT NULL,
-  address varchar(45) NOT NULL
+  name varchar(45) UNIQUE NOT NULL,
+  address varchar(45) UNIQUE NOT NULL
+  PRIMARY KEY (id_location)
 );
 
 -- Create table Employees
@@ -50,7 +51,7 @@ CREATE TABLE Customers (
 -- Create table Services
 CREATE TABLE Services (
   id_service int AUTO_INCREMENT UNIQUE NOT NULL,
-  name varchar(45) NOT NULL,
+  name varchar(45) UNIQUE NOT NULL,
   description varchar(255),
   price decimal(10,2) NOT NULL,
   PRIMARY KEY (id_service)
@@ -100,16 +101,26 @@ VALUES ("Broadway", "755 NW Broadway, Portland, OR 97208"),
 
 -- Add data to Employees
 INSERT INTO Employees (first_name, last_name, date_of_birth, phone_number, email_address, id_location)
-VALUES ("Luke", "Harris", "1983-12-05", "(503) 555-0001", "harrisl@oldmikescfs.com", 1),
-("Dylan", "Miller", "1980-04-10", "(503) 555-0002", "millerd@oldmikescfs.com", 1),
-("Mason", "Carter", "1994-11-25", "(503) 555-0003", "carterm@oldmikescfs.com", 2),
-("Logan", "Kelly", "1979-08-03", "(503) 555-0004", "kellylo@oldmikescfs.com", 2),
-("Henry", "Rogers", "1996-05-29", "(503) 555-0005", "rogersh@oldmikescfs.com", 3),
-("Hunter", "Murphy", "1987-06-14", "(503) 555-0006", "murphyh@oldmikescfs.com", 3),
-("Jordan", "Stewart", "1985-02-16", "(503) 555-0007", "stewarj@oldmikescfs.com", 4),
-("Eric", "Stone", "1981-11-17", "(503) 555-0008", "stonee@oldmikescfs.com", 4),
-("Austin", "Long", "1989-03-25", "(503) 555-0009", "longaus@oldmikescfs.com", 5),
-("Tyler", "Brooks", "1990-06-21", "(503) 555-0010", "brookst@oldmikescfs.com", 5);
+VALUES ("Luke", "Harris", "1983-12-05", "(503) 555-0001", "harrisl@oldmikescfs.com",
+  (SELECT id_location FROM Locations WHERE name = "Broadway")),
+("Dylan", "Miller", "1980-04-10", "(503) 555-0002", "millerd@oldmikescfs.com",
+  (SELECT id_location FROM Locations WHERE name = "Broadway")),
+("Mason", "Carter", "1994-11-25", "(503) 555-0003", "carterm@oldmikescfs.com",
+  (SELECT id_location FROM Locations WHERE name = "SE Powell")),
+("Logan", "Kelly", "1979-08-03", "(503) 555-0004", "kellylo@oldmikescfs.com",
+  (SELECT id_location FROM Locations WHERE name = "SE Powell")),
+("Henry", "Rogers", "1996-05-29", "(503) 555-0005", "rogersh@oldmikescfs.com",
+  (SELECT id_location FROM Locations WHERE name = "SE 82nd Ave")),
+("Hunter", "Murphy", "1987-06-14", "(503) 555-0006", "murphyh@oldmikescfs.com",
+  (SELECT id_location FROM Locations WHERE name = "SE 82nd Ave")),
+("Jordan", "Stewart", "1985-02-16", "(503) 555-0007", "stewarj@oldmikescfs.com",
+  (SELECT id_location FROM Locations WHERE name = "SW Lombard Ave")),
+("Eric", "Stone", "1981-11-17", "(503) 555-0008", "stonee@oldmikescfs.com",
+  (SELECT id_location FROM Locations WHERE name = "SW Lombard Ave")),
+("Austin", "Long", "1989-03-25", "(503) 555-0009", "longaus@oldmikescfs.com",
+  (SELECT id_location FROM Locations WHERE name = "SE McLoughlin Blvd")),
+("Tyler", "Brooks", "1990-06-21", "(503) 555-0010", "brookst@oldmikescfs.com",
+  (SELECT id_location FROM Locations WHERE name = "SE McLoughlin Blvd"));
 
 -- Add data to Customers
 INSERT INTO Customers (first_name, last_name, date_of_birth, phone_number, email_address, address)
@@ -134,21 +145,31 @@ VALUES ("oil change", "replace the engine oil and oil filter", 75.00),
 
 -- Add data to Invoices
 INSERT INTO Invoices (id_customer, id_employee, id_location, date, total)
-VALUES (1, 4, 2, "2024-05-10 14:05:38", 145.00),
-(2, 2, 1, "2024-07-09 16:10:05", 250.00),
-(3, 6, 3, "2024-09-27 10:32:01", 350.00),
-(4, 9, 5, "2025-06-27 14:16:58", 390.00),
-(1, 4, 2, "2025-10-08 15:38:54", 155.00);
+VALUES ((SELECT id_customer FROM Customers WHERE first_name = "Andrew"),
+  (SELECT id_employee FROM Employees WHERE first_name = "Logan"),
+  (SELECT id_location FROM Locations WHERE name = "SE Powell"), "2024-05-10 14:05:38", 145.00),
+((SELECT id_customer FROM Customers WHERE first_name = "Ethan"),
+  (SELECT id_employee FROM Employees WHERE first_name = "Dylan"),
+  (SELECT id_location FROM Locations WHERE name = "Broadway"), "2024-07-09 16:10:05", 250.00),
+((SELECT id_customer FROM Customers WHERE first_name = "Amanda"),
+  (SELECT id_employee FROM Employees WHERE first_name = "Hunter"),
+  (SELECT id_location FROM Locations WHERE name = "SE 82nd Ave"), "2024-09-27 10:32:01", 350.00),
+((SELECT id_customer FROM Customers WHERE first_name = "Nicole"),
+  (SELECT id_employee FROM Employees WHERE first_name = "Austin"),
+  (SELECT id_location FROM Locations WHERE name = "SE McLoughlin Blvd"), "2025-06-27 14:16:58", 390.00),
+((SELECT id_customer FROM Customers WHERE first_name = "Andrew"),
+  (SELECT id_employee FROM Employees WHERE first_name = "Logan"),
+  (SELECT id_location FROM Locations WHERE name = "SE Powell"), "2025-10-08 15:38:54", 155.00);
 
 -- Add data to Invoices_Services
 INSERT INTO Invoices_Services (id_invoice, id_service, sale_price)
-VALUES (1, 1, 75.00),
-(1, 2, 35.00),
-(1, 6, 35.00),
-(2, 4, 250.00),
-(3, 9, 350.00),
-(4, 10, 390.00),
-(5, 1, 75.00),
-(5, 2, 35.00),
-(5, 6, 45.00);
+VALUES (1, (SELECT id_service FROM Services WHERE name = "oil change"), 75.00),
+(1, (SELECT id_service FROM Services WHERE name = "tire rotation"), 35.00),
+(1, (SELECT id_service FROM Services WHERE name = "safety check"), 35.00),
+(2, (SELECT id_service FROM Services WHERE name = "battery replace"), 250.00),
+(3, (SELECT id_service FROM Services WHERE name = "transmission flush"), 350.00),
+(4, (SELECT id_service FROM Services WHERE name = "spark plug replace"), 390.00),
+(5, (SELECT id_service FROM Services WHERE name = "oil change"), 75.00),
+(5, (SELECT id_service FROM Services WHERE name = "tire rotation"), 35.00),
+(5, (SELECT id_service FROM Services WHERE name = "safety check"), 45.00);
 
