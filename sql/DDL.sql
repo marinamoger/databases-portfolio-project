@@ -31,7 +31,8 @@ CREATE TABLE Employees (
   email_address varchar(45) UNIQUE NOT NULL,
   id_location int NOT NULL,
   PRIMARY KEY (id_employee),
-  FOREIGN KEY (id_location) REFERENCES Locations (id_location) ON DELETE RESTRICT
+  FOREIGN KEY (id_location) REFERENCES Locations (id_location)
+  ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Create table Customers
@@ -64,9 +65,12 @@ CREATE TABLE Invoices (
   date datetime NOT NULL,
   total decimal(10,2) NOT NULL,
   PRIMARY KEY (id_invoice),
-  FOREIGN KEY (id_customer) REFERENCES Customers (id_customer) ON DELETE RESTRICT,
-  FOREIGN KEY (id_employee) REFERENCES Employees (id_employee) ON DELETE RESTRICT,
-  FOREIGN KEY (id_location) REFERENCES Locations (id_location) ON DELETE RESTRICT
+  FOREIGN KEY (id_customer) REFERENCES Customers (id_customer)
+  ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY (id_employee) REFERENCES Employees (id_employee)
+  ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY (id_location) REFERENCES Locations (id_location)
+  ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Create table Invoices_Services
@@ -76,8 +80,10 @@ CREATE TABLE Invoices_Services (
   id_service int NOT NULL,
   sale_price decimal(10,2) NOT NULL,
   PRIMARY KEY (id_invoice_service),
-  FOREIGN KEY (id_invoice) REFERENCES Invoices (id_invoice) ON DELETE CASCADE,
-  FOREIGN KEY (id_service) REFERENCES Services (id_service) ON DELETE RESTRICT
+  FOREIGN KEY (id_invoice) REFERENCES Invoices (id_invoice)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_service) REFERENCES Services (id_service)
+  ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 /*
