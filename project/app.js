@@ -34,10 +34,65 @@ app.set('view engine', '.hbs'); // Use handlebars engin for *.hbs files
 * Route handlers
 */
 
-// READ using GET /
+// READ: load the home page using GET /
 app.get('/', async (req, res) => {
   try {
     res.render('home'); // Render the home.hbs file
+  } catch (err) {
+    console.error('Error rendering page:', err);
+    // Send a generic error message to the browser
+    res.status(500).send('An error occurred while rendering the page.');
+  }
+});
+
+// READ: load the locations page using GET /locations
+app.get('/locations', async (req, res) => {
+  try {
+    res.render('locations'); // Render the locations.hbs file
+  } catch (err) {
+    console.error('Error rendering page:', err);
+    // Send a generic error message to the browser
+    res.status(500).send('An error occurred while rendering the page.');
+  }
+});
+
+// READ: load the employees page using GET /employees
+app.get('/employees', async (req, res) => {
+  try {
+    res.render('employees'); // Render the employees.hbs file
+  } catch (err) {
+    console.error('Error rendering page:', err);
+    // Send a generic error message to the browser
+    res.status(500).send('An error occurred while rendering the page.');
+  }
+});
+
+// READ: load the customers page using GET /customers
+app.get('/customers', async (req, res) => {
+  try {
+    res.render('customers'); // Render the customers.hbs file
+  } catch (err) {
+    console.error('Error rendering page:', err);
+    // Send a generic error message to the browser
+    res.status(500).send('An error occurred while rendering the page.');
+  }
+});
+
+// READ: load the services page using GET /services
+app.get('/services', async (req, res) => {
+  try {
+    res.render('services'); // Render the services.hbs file
+  } catch (err) {
+    console.error('Error rendering page:', err);
+    // Send a generic error message to the browser
+    res.status(500).send('An error occurred while rendering the page.');
+  }
+});
+
+// READ: load the invoices page using GET /invoices
+app.get('/invoices', async (req, res) => {
+  try {
+    res.render('invoices'); // Render the invoices.hbs file
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
