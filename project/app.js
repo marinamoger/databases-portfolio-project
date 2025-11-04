@@ -100,6 +100,50 @@ app.get('/invoices', async (req, res) => {
   }
 });
 
+// READ: load the add_invoice page using GET/add_invoice
+app.get('/add_invoice', async (req, res) => {
+  try {
+    res.render('add_invoice'); // Render the add_invoice.hbs file
+  } catch (err) {
+    console.error('Error rendering page:', err);
+    // Send a generic error message to the browser
+    res.status(500).send('An error occurred while rendering the page.');
+  }
+});
+
+// READ: load the add_invoice_service page using GET/add_invoice_service
+app.get('/add_invoice_service', async (req, res) => {
+  try {
+    res.render('add_invoice_service'); // Render the add_invoice_service.hbs file
+  } catch (err) {
+    console.error('Error rendering page:', err);
+    // Send a generic error message to the browser
+    res.status(500).send('An error occurred while rendering the page.');
+  }
+});
+
+// READ: load the edit_invoice page using GET/edit_invoice
+app.get('/edit_invoice', async (req, res) => {
+  try {
+    res.render('edit_invoice'); // Render the edit_invoice.hbs file
+  } catch (err) {
+    console.error('Error rendering page:', err);
+    // Send a generic error message to the browser
+    res.status(500).send('An error occurred while rendering the page.');
+  }
+});
+
+// READ: load the edit_invoice_service page using GET/edit_invoice_service
+app.get('/edit_invoice_service', async (req, res) => {
+  try {
+    res.render('edit_invoice_service'); // Render the edit_invoice_service.hbs file
+  } catch (err) {
+    console.error('Error rendering page:', err);
+    // Send a generic error message to the browser
+    res.status(500).send('An error occurred while rendering the page.');
+  }
+});
+
 /*
 * Listener
 */
