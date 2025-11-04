@@ -18,7 +18,7 @@
 CREATE TABLE Locations (
   id_location int AUTO_INCREMENT UNIQUE NOT NULL,
   name varchar(45) UNIQUE NOT NULL,
-  address varchar(45) UNIQUE NOT NULL
+  address varchar(45) UNIQUE NOT NULL,
   PRIMARY KEY (id_location)
 );
 
