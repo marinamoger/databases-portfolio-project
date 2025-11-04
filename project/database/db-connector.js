@@ -8,7 +8,7 @@
 // Citation:
 // Date: 11/03/2025
 // Code in this document is adapted from Canvas Course Module.
-// Source URL: https://canvas.oregonstate.edu/courses/2017561/pages/exploration-web-application-technology-2?module_item_id=25645131.
+// Source URL: https://canvas.oregonstate.edu/courses/2017561/pages/exploration-web-application-technology-2?module_item_id=25645131
 
 // Get a MySQL databasse instance
 let mysql = require('mysql2');
