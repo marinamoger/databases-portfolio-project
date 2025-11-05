@@ -94,4 +94,4 @@ UPDATE Invoices (total)
 VALUES (SELECT SUM(sale_price)
   FROM Invoices_Services
   GROUP BY id_invoice
-  WHERE id_invoice = :id_invoice_get_before_delete;
+  WHERE id_invoice = :id_invoice_get_before_delete);
