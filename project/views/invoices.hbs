@@ -18,6 +18,8 @@ Citation: All code in this file without citation is original.
             {{@key}}
         </th>
         {{/each}}
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -30,16 +32,21 @@ Citation: All code in this file without citation is original.
         <td>{{this.id_location}}</td>
         <td>{{this.date}}</td>
         <td>{{this.total}}</td>
+        <td>
+          <a href="/edit_invoice">Edit</a>
+        </td>
+        <td>
+          <a href="/invoices">Delete</a>
+        </td>
       </tr>
       {{/each}}
     </tbody>
   </table>
     <div>
     <a href="/add_invoice">Add an invoice</a>
-    <a href="/edit_invoice">Edit an invoice</a>
   </div>
   <table>
-    <caption>Invoice detail table</caption>
+    <caption>Invoice details table</caption>
     <thead>
       {{! For the table header row, we print the DB attribute names }}
       <tr>
@@ -48,6 +55,8 @@ Citation: All code in this file without citation is original.
             {{@key}}
         </th>
         {{/each}}
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -58,12 +67,17 @@ Citation: All code in this file without citation is original.
         <td>{{this.id_invoice}}</td>
         <td>{{this.id_service}}</td>
         <td>{{this.sale_price}}</td>
+        <td>
+          <a href="/edit_invoice_service">Edit</a>
+        </td>
+        <td>
+          <a href="/invoices">Delete</a>
+        </td>
       </tr>
       {{/each}}
     </tbody>
   </table>
   <div>
     <a href="/add_invoice_service">Add a service to an invoice</a>
-    <a href="/edit_invoice_service">Edit a service in an invoice</a>
   </div>
 </div>
