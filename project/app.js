@@ -45,10 +45,13 @@ app.get('/', async (req, res) => {
   }
 });
 
-// READ: load the locations page using GET /locations
+// READ: load the Locations table using GET /locations
 app.get('/locations', async (req, res) => {
   try {
-    res.render('locations'); // Render the locations.hbs file
+    // Create and execute queries
+    const query = `SELECT * FROM Locations;`;
+    const [locations] = await db.query(query);
+    res.render('locations', { locations: locations }); // Render the locations.hbs file
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -56,10 +59,13 @@ app.get('/locations', async (req, res) => {
   }
 });
 
-// READ: load the employees page using GET /employees
+// READ: load the Employees table using GET /employees
 app.get('/employees', async (req, res) => {
   try {
-    res.render('employees'); // Render the employees.hbs file
+    // Create and execute queries
+    const query = `SELECT * FROM Employees;`;
+    const [employees] = await db.query(query);
+    res.render('employees', { employees: employees }); // Render the employees.hbs file
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -67,10 +73,13 @@ app.get('/employees', async (req, res) => {
   }
 });
 
-// READ: load the customers page using GET /customers
+// READ: load the Customers table using GET /customers
 app.get('/customers', async (req, res) => {
   try {
-    res.render('customers'); // Render the customers.hbs file
+    // Create and execute queries
+    const query = `SELECT * FROM Customers;`;
+    const [customers] = await db.query(query);
+    res.render('customers', { customers: customers }); // Render the customers.hbs file
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -78,10 +87,13 @@ app.get('/customers', async (req, res) => {
   }
 });
 
-// READ: load the services page using GET /services
+// READ: load the Services table using GET /services
 app.get('/services', async (req, res) => {
   try {
-    res.render('services'); // Render the services.hbs file
+    // Create and execute queries
+    const query = `SELECT * FROM Services;`;
+    const [services] = await db.query(query);
+    res.render('services', { services: services }); // Render the services.hbs file
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -92,7 +104,12 @@ app.get('/services', async (req, res) => {
 // READ: load the invoices page using GET /invoices
 app.get('/invoices', async (req, res) => {
   try {
-    res.render('invoices'); // Render the invoices.hbs file
+    // Create and execute queries
+    const query_1 = `SELECT * FROM Invoices;`;
+    const query_2 = `SELECT * FROM Invoices_Services;`;
+    const [invoices] = await db.query(query_1);
+    const [invoices_services] = await db.query(query_2);
+    res.render('invoices', { invoices: invoices, invoices_services: invoices_services });
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -103,7 +120,12 @@ app.get('/invoices', async (req, res) => {
 // READ: load the add_invoice page using GET/add_invoice
 app.get('/add_invoice', async (req, res) => {
   try {
-    res.render('add_invoice'); // Render the add_invoice.hbs file
+    // Create and execute queries
+    const query_1 = `SELECT * FROM Customers;`;
+    const query_2 = `SELECT * FROM Employees;`;
+    const [customers] = await db.query(query_1);
+    const [employees] = await db.query(query_2);
+    res.render('add_invoice', { customers: customers, employees: employees });
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -114,7 +136,12 @@ app.get('/add_invoice', async (req, res) => {
 // READ: load the add_invoice_service page using GET/add_invoice_service
 app.get('/add_invoice_service', async (req, res) => {
   try {
-    res.render('add_invoice_service'); // Render the add_invoice_service.hbs file
+    // Create and execute queries
+    const query_1 = `SELECT * FROM Invoices;`;
+    const query_2 = `SELECT * FROM Services;`;
+    const [invoices] = await db.query(query_1);
+    const [services] = await db.query(query_2);
+    res.render('add_invoice_service', { invoices: invoices, services: services });
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser

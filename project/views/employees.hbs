@@ -8,5 +8,30 @@ Citation: All code in this file without citation is original.
 
 <h1>Employees</h1>
 <div>
-  <p>This page will display Employees table.</p>
+  <table>
+    <thead>
+      {{! For the table header row, we print the DB attribute names }}
+      <tr>
+        {{#each employees.[0]}}
+        <th>
+            {{@key}}
+        </th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      {{! For each row, print the id_location, name, and address }}
+      {{#each employees}}
+      <tr>
+        <td>{{this.id_employee}}</td>
+        <td>{{this.first_name}}</td>
+        <td>{{this.last_name}}</td>
+        <td>{{this.date_of_birth}}</td>
+        <td>{{this.phone_number}}</td>
+        <td>{{this.email_address}}</td>
+        <td>{{this.id_location}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>

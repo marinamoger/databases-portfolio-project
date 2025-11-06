@@ -8,5 +8,24 @@ Citation: All code in this file without citation is original.
 
 <h1>Add Service to Invoice</h1>
 <div>
-  <p>This page will add a row to Invoices_Services.</p>
+  {{! CREATE form }}
+  <form>
+    <label for="create_id_invoice">id_invoice:</label>
+    <select name="create_id_invoice" id="create_id_invoice" required>
+      <option value="NULL" disabled selected>Select a invoice ID</option>
+      {{#each invoices}}
+      <option value="{{this.id_invoice}}">{{this.id_invoice}}</option>
+      {{/each}}
+    </select>
+    <label for="create_id_service">id_service:</label>
+    <select name="create_id_service" id="create_id_service" required>
+      <option value="NULL" disabled selected>Select a service ID</option>
+      {{#each services}}
+      <option value="{{this.id_service}}">{{this.id_service}} - {{this.name}}</option>
+      {{/each}}
+    </select>
+    <label for="create_sale_price">sale_price</label>
+    <input type="number" name="create_sale_price" id="create_sale_price" required/>
+    <input type="submit"/>
+  </form>
 </div>

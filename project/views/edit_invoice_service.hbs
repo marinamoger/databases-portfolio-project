@@ -8,5 +8,24 @@ Citation: All code in this file without citation is original.
 
 <h1>Edit Service in Invoice</h1>
 <div>
-  <p>This page will edit a row in Invoices_Services.</p>
+  {{! Update form }}
+  <form>
+    <label for="update_id_invoice">id_invoice:</label>
+    <select name="update_id_invoice" id="update_id_invoice" required>
+      <option value="NULL" disabled selected>Select a invoice ID</option>
+      {{#each invoices}}
+      <option value="{{this.id_invoice}}">{{this.id_invoice}}</option>
+      {{/each}}
+    </select>
+    <label for="update_id_service">id_service:</label>
+    <select name="update_id_service" id="update_id_service" required>
+      <option value="NULL" disabled selected>Select a service ID</option>
+      {{#each services}}
+      <option value="{{this.id_service}}">{{this.id_service}} - {{this.name}}</option>
+      {{/each}}
+    </select>
+    <label for="update_sale_price">sale_price</label>
+    <input type="number" name="update_sale_price" id="update_sale_price" required/>
+    <input type="submit"/>
+  </form>
 </div>

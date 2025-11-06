@@ -8,5 +8,24 @@ Citation: All code in this file without citation is original.
 
 <h1>Add Invoice</h1>
 <div>
-  <p>This page will add a row to Invoices.</p>
+  {{! CREATE form }}
+  <form>
+    <label for="create_id_customer">id_customer:</label>
+    <select name="create_id_customer" id="create_id_customer" required>
+      <option value="NULL" disabled selected>Select a customer ID</option>
+      {{#each customers}}
+      <option value="{{this.id_customer}}">{{this.id_customer}} - {{this.first_name}} {{this.last_name}}</option>
+      {{/each}}
+    </select>
+    <label for="create_id_employee">id_employee:</label>
+    <select name="create_id_employee" id="create_id_employee" required>
+      <option value="NULL" disabled selected>Select a employee ID</option>
+      {{#each employees}}
+      <option value="{{this.id_employee}}">{{this.id_employee}} - {{this.first_name}} {{this.last_name}}</option>
+      {{/each}}
+    </select>
+    <label for="create_date">date:</label>
+    <input type="datetime-local" name="create_date" id="create_date" required/>
+    <input type="submit"/>
+  </form>
 </div>
