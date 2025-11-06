@@ -27,6 +27,7 @@ const db = require('./database/db-connector');
 
 // Handlebars
 const { engine } = require('express-handlebars'); // Import express-handlebars engine
+const e = require('express');
 app.engine('.hbs', engine({ extname: '.hbs' })); // Create instance of handlebars
 app.set('view engine', '.hbs'); // Use handlebars engin for *.hbs files
 
@@ -152,7 +153,12 @@ app.get('/add_invoice_service', async (req, res) => {
 // READ: load the edit_invoice page using GET/edit_invoice
 app.get('/edit_invoice', async (req, res) => {
   try {
-    res.render('edit_invoice'); // Render the edit_invoice.hbs file
+    // Create and execute queries
+    const query_1 = `SELECT * FROM Customers;`;
+    const query_2 = `SELECT * FROM Employees;`;
+    const [customers] = await db.query(query_1);
+    const [employees] = await db.query(query_2);
+    res.render('edit_invoice', { customers:customers, employees:employees });
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -163,7 +169,12 @@ app.get('/edit_invoice', async (req, res) => {
 // READ: load the edit_invoice_service page using GET/edit_invoice_service
 app.get('/edit_invoice_service', async (req, res) => {
   try {
-    res.render('edit_invoice_service'); // Render the edit_invoice_service.hbs file
+    // Create and execute queries
+    const query_1 = `SELECT * FROM Invoices;`;
+    const query_2 = `SELECT * FROM Services;`;
+    const [invoices] = await db.query(query_1);
+    const [services] = await db.query(query_2);
+    res.render('edit_invoice_service', { invoices:invoices, services:services });
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
