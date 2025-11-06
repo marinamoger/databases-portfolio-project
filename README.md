@@ -1,4 +1,4 @@
-If you need to rebuild the app before run it. To do so, please follow the steps below:
+You need to rebuild the app before running it. To do so, please follow the steps below:
 1. Clone/copy the project folder.
 2. Open a Terminal and move into the project folder.
 3. Run `npm init`.
