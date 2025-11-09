@@ -17,9 +17,9 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit   : 10,
   host              : 'classmysql.engr.oregonstate.edu',
-  user              : 'cs340_fengle',
-  password          : 'Nr2vVscKHdvV',
-  database          : 'cs340_fengle'
+  user              : 'cs340_[your_onid]',
+  password          : '[your_db_password]',
+  database          : 'cs340_[your_onid]'
 }).promise();
 
 module.exports = pool;

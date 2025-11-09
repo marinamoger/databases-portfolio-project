@@ -11,5 +11,18 @@ You need to rebuild the app before running it. To do so, please follow the steps
       "stop_production": "npx forever stop app.js"
     },
   ```
-7. Run `npm run development` for development build, or `npm run production` for production build.
-8. To stop the production build by `npm run stop_production`.
+6. In database/db-connector.js, change the following items:
+  ```
+    host              : 'classmysql.engr.oregonstate.edu',
+    user              : 'cs340_[your_onid]',  // change [your_onid] to your onid
+    password          : '[your_db_password]', // your dababase password
+    database          : 'cs340_[your_onid]'   // change [your_onid] to your onid
+  ```
+   You can also use your local server and set these correspondingly.
+7. In app.js, change the following item:
+  ```
+    const PORT = YOUR_PORT_NUM; // change YOUR_PORT_NUM to the port number your want to use, any number in [1024 - 65535] exclusive.
+  ```
+   On the school server, any number within [1024 - 65535] exclusive is acceptable. Numbers in [0 - 1024] inclusive are privileged. Avoid numbers like 1234 (incremental increases), or 2222 (repeating) as students often prefer these easier numbers to type in and are often already in use.
+8. Run `npm run development` for development build, or `npm run production` for production build.
+9. To stop the production build by `npm run stop_production`.
