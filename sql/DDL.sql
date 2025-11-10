@@ -10,6 +10,10 @@
 *         phpMyAdmin or the MySQL CLI using the source query.
 */
 
+SET FOREGIN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS Locations, Employees, Customers, Services, Invoices, Invoices_Services;
+DROP VIEW IF EXISTS v_locations, v_employees, v_customers, v_services, v_invoices, v_invoices_services;
+
 /*
 * Create tables
 */
@@ -172,4 +176,71 @@ VALUES (1, (SELECT id_service FROM Services WHERE name = "oil change"), 75.00),
 (5, (SELECT id_service FROM Services WHERE name = "oil change"), 75.00),
 (5, (SELECT id_service FROM Services WHERE name = "tire rotation"), 35.00),
 (5, (SELECT id_service FROM Services WHERE name = "safety check"), 45.00);
+
+/*
+* Create views for web app
+*/
+
+-- Create view for Locations
+CREATE VIEW v_locations AS
+SELECT * FROM Locations;
+
+-- Create view for Employees
+CREATE VIEW v_employees AS
+SELECT
+  Employees.id_employee,
+  Employees.first_name,
+  Employees.last_name,
+  Employees.date_of_birth,
+  Employees.phone_number,
+  Employees.email_address,
+  Locations.name AS name_location,
+  Employees.id_location
+FROM Employees
+JOIN Locations
+ON Employees.id_location = Locations.id_location
+ORDER BY Employees.id_employee;
+
+-- Create view for Customers
+CREATE VIEW v_customers AS
+SELECT * FROM Customers;
+
+-- Create view for Services
+CREATE VIEW v_services AS
+SELECT * FROM Services;
+
+-- Create view for Invoices
+CREATE VIEW v_invoices AS
+SELECT
+  Invoices.id_invoice,
+  CONCAT(Customers.first_name, ' ', Customers.last_name) AS name_customer,
+  Invoices.id_customer,
+  CONCAT(Employees.first_name, ' ', Employees.last_name) AS name_employee,
+  Invoices.id_employee,
+  Locations.name AS name_location,
+  Invoices.id_location,
+  Invoices.date,
+  Invoices.total
+FROM Invoices
+JOIN Customers
+ON Invoices.id_customer = Customers.id_customer
+JOIN Employees
+ON Invoices.id_employee = Employees.id_employee
+JOIN Locations
+ON Invoices.id_location = Locations.id_location
+ORDER BY Invoices.id_invoice;
+
+-- Create view for Invoices_Services
+CREATE VIEW v_invoices_services AS
+SELECT
+  Invoices_Services.id_invoice_service,
+  Invoices_Services.id_invoice,
+  Services.name AS name_service,
+  Invoices_Services.id_service,
+  Services.price AS list_price,
+  Invoices_Services.sale_price
+FROM Invoices_Services
+JOIN Services
+ON Invoices_Services.id_service = Services.id_service
+ORDER BY Invoices_Services.id_invoice_service;
 

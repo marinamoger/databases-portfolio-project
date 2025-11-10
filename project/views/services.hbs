@@ -8,15 +8,15 @@ Citation: All code in this file without citation is original.
 
 <h1>Services</h1>
 <div>
-  <table>
+  <table id="table_services">
     <thead>
       {{! For the table header row, we print the DB attribute names }}
       <tr>
-        {{#each services.[0]}}
-        <th>
-            {{@key}}
-        </th>
-        {{/each}}
+        <th>Service ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>List Price</th>
+        <th colspan="2" style="text-align: center;">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -27,8 +27,20 @@ Citation: All code in this file without citation is original.
         <td>{{this.name}}</td>
         <td>{{this.description}}</td>
         <td>{{this.price}}</td>
+        <td class="interactive_cell">
+          <button onclick="window.location.href='/edit_service'">Edit</button>
+        </td>
+        <td class="interactive_cell">
+          <button onclick="window.location.href='/services'">Delete</button>
+        </td>
       </tr>
       {{/each}}
+      <tr>
+        <td colspan="4"></td>
+        <td colspan="2" style="text-align: center;" class="interactive_cell">
+          <button onclick="window.location.href='/add_service'">Add</button>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

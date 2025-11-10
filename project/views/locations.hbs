@@ -8,15 +8,14 @@ Citation: All code in this file without citation is original.
 
 <h1>Locations</h1>
 <div>
-  <table>
+  <table id="table_locations">
     <thead>
       {{! For the table header row, we print the DB attribute names }}
       <tr>
-        {{#each locations.[0]}}
-        <th>
-            {{@key}}
-        </th>
-        {{/each}}
+        <th>Location ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th colspan="2" style="text-align: center;">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -26,8 +25,20 @@ Citation: All code in this file without citation is original.
         <td>{{this.id_location}}</td>
         <td>{{this.name}}</td>
         <td>{{this.address}}</td>
+        <td class="interactive_cell">
+          <button onclick="window.location.href='/edit_location'">Edit</button>
+        </td>
+        <td class="interactive_cell">
+          <button onclick="window.location.href='/locations'">Delete</button>
+        </td>
       </tr>
       {{/each}}
+      <tr>
+        <td colspan="3"></td>
+        <td colspan="2" style="text-align: center;" class="interactive_cell">
+          <button onclick="window.location.href='/add_location'">Add</button>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

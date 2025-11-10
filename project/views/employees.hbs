@@ -8,15 +8,19 @@ Citation: All code in this file without citation is original.
 
 <h1>Employees</h1>
 <div>
-  <table>
+  <table id="table_employees">
     <thead>
       {{! For the table header row, we print the DB attribute names }}
       <tr>
-        {{#each employees.[0]}}
-        <th>
-            {{@key}}
-        </th>
-        {{/each}}
+        <th>Employee ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Date of Birth</th>
+        <th>Phone Number</th>
+        <th>Email Address</th>
+        <th>Location ID</th>
+        <th>Location</th>
+        <th colspan="2" style="text-align: center;">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -30,8 +34,21 @@ Citation: All code in this file without citation is original.
         <td>{{this.phone_number}}</td>
         <td>{{this.email_address}}</td>
         <td>{{this.id_location}}</td>
+        <td>{{this.name_location}}</td>
+        <td class="interactive_cell">
+          <button onclick="window.location.href='/edit_employee'">Edit</button>
+        </td>
+        <td class="interactive_cell">
+          <button onclick="window.location.href='/employees'">Delete</button>
+        </td>
       </tr>
       {{/each}}
+      <tr>
+        <td colspan="8"></td>
+        <td colspan="2" style="text-align: center;" class="interactive_cell">
+          <button onclick="window.location.href='/add_employee'">Add</button>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

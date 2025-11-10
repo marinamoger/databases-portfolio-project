@@ -10,22 +10,53 @@ Citation: All code in this file without citation is original.
 <div>
   {{! CREATE form }}
   <form>
-    <label for="create_id_customer">id_customer:</label>
-    <select name="create_id_customer" id="create_id_customer" required>
-      <option value="NULL" disabled selected>Select a customer ID</option>
-      {{#each customers}}
-      <option value="{{this.id_customer}}">{{this.id_customer}} - {{this.first_name}} {{this.last_name}}</option>
-      {{/each}}
-    </select>
-    <label for="create_id_employee">id_employee:</label>
-    <select name="create_id_employee" id="create_id_employee" required>
-      <option value="NULL" disabled selected>Select a employee ID</option>
-      {{#each employees}}
-      <option value="{{this.id_employee}}">{{this.id_employee}} - {{this.first_name}} {{this.last_name}}</option>
-      {{/each}}
-    </select>
-    <label for="create_date">date:</label>
-    <input type="datetime-local" name="create_date" id="create_date" required/>
-    <button type="submit">Confirm</button>
+    <table id="table_add_invoice">
+      <thead>
+        <tr>
+          <th>Customer ID</th>
+          <th>Employee ID</th>
+          <th>Location ID</th>
+          <th>Date</th>
+          <th colspan="2" style="text-align: center;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="interactive_cell">
+            <select name="create_id_customer" id="create_id_customer" required>
+              <option value="" disabled selected hidden>Select</option>
+              {{#each customers}}
+              <option value="{{this.id_customer}}">{{this.id_customer}} - {{this.first_name}} {{this.last_name}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td class="interactive_cell">
+            <select name="create_id_employee" id="create_id_employee" required>
+              <option value="" disabled selected hidden>Select</option>
+              {{#each employees}}
+              <option value="{{this.id_employee}}">{{this.id_employee}} - {{this.first_name}} {{this.last_name}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td class="interactive_cell">
+            <select name="create_id_location" id="create_id_location" required>
+              <option value="" disabled selected hidden>Select</option>
+              {{#each locations}}
+              <option value="{{this.id_location}}">{{this.id_location}} - {{this.name}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td class="interactive_cell">
+            <input type="datetime-local" name="update_date" id="update_date" required/>
+          </td>
+          <td class="interactive_cell">
+            <button type="submit">Confirm</button>
+          </td>
+          <td class="interactive_cell">
+            <button onclick="window.location.href='/invoices'">Cancel</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </form>
 </div>

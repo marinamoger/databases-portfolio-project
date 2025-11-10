@@ -6,20 +6,23 @@ Description: The project's invoices page.
 Citation: All code in this file without citation is original.
 -->
 
+<script src="../invoices.js"></script>
 <h1>Invoices</h1>
 <div>
-  <table>
-    <caption>Invoices table</caption>
+  <table id="table_invoices">
     <thead>
       {{! For the table header row, we print the DB attribute names }}
       <tr>
-        {{#each invoices.[0]}}
-        <th>
-            {{@key}}
-        </th>
-        {{/each}}
-        <th></th>
-        <th></th>
+        <th>Invoice ID</th>
+        <th>Customer ID</th>
+        <th>Customer</th>
+        <th>Employee ID</th>
+        <th>Employee</th>
+        <th>Location ID</th>
+        <th>Location</th>
+        <th>Date</th>
+        <th>Total</th>
+        <th colspan="2" style="text-align: center;">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -28,35 +31,43 @@ Citation: All code in this file without citation is original.
       <tr>
         <td>{{this.id_invoice}}</td>
         <td>{{this.id_customer}}</td>
+        <td>{{this.name_customer}}</td>
         <td>{{this.id_employee}}</td>
+        <td>{{this.name_employee}}</td>
         <td>{{this.id_location}}</td>
+        <td>{{this.name_location}}</td>
         <td>{{this.date}}</td>
         <td>{{this.total}}</td>
-        <td>
-          <a href="/edit_invoice">Edit</a>
+        <td class="interactive_cell">
+          <button onclick="window.location.href='/edit_invoice'">Edit</button>
         </td>
-        <td>
-          <a href="/invoices">Delete</a>
+        <td class="interactive_cell">
+          <button onclick="window.location.href='/invoices'">Delete</button>
         </td>
       </tr>
       {{/each}}
+      <tr>
+        <td colspan="9"></td>
+        <td colspan="2" style="text-align: center;" class="interactive_cell">
+          <button onclick="window.location.href='/add_invoice'">Add</button>
+        </td>
+      </tr>
     </tbody>
   </table>
-    <div>
-    <a href="/add_invoice">Add an invoice</a>
-  </div>
-  <table>
-    <caption>Invoice details table</caption>
+</div>
+<h1>Invoice Details</h1>
+<div>
+  <table id="table_invoices_services">
     <thead>
       {{! For the table header row, we print the DB attribute names }}
       <tr>
-        {{#each invoices_services.[0]}}
-        <th>
-            {{@key}}
-        </th>
-        {{/each}}
-        <th></th>
-        <th></th>
+        <th>Invoice Detail ID</th>
+        <th>Invoice ID</th>
+        <th>Service ID</th>
+        <th>Service</th>
+        <th>List Price</th>
+        <th>Sale Price</th>
+        <th colspan="2" style="text-align: center;">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -66,18 +77,23 @@ Citation: All code in this file without citation is original.
         <td>{{this.id_invoice_service}}</td>
         <td>{{this.id_invoice}}</td>
         <td>{{this.id_service}}</td>
+        <td>{{this.name_service}}</td>
+        <td>{{this.list_price}}</td>
         <td>{{this.sale_price}}</td>
-        <td>
-          <a href="/edit_invoice_service">Edit</a>
+        <td class="interactive_cell">
+          <button onclick="window.location.href='/edit_invoice_service'">Edit</button>
         </td>
-        <td>
-          <a href="/invoices">Delete</a>
+        <td class="interactive_cell">
+          <button onclick="window.location.href='/invoices'">Delete</button>
         </td>
       </tr>
       {{/each}}
+      <tr>
+        <td colspan="6"></td>
+        <td colspan="2" style="text-align: center;" class="interactive_cell">
+          <button onclick="window.location.href='/add_invoice_service'">Add</button>
+        </td>
+      </tr>
     </tbody>
   </table>
-  <div>
-    <a href="/add_invoice_service">Add a service to an invoice</a>
-  </div>
 </div>

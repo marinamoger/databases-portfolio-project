@@ -3,23 +3,36 @@
 * Project Group: 45
 * Group Members: Lei Feng, Marina Moger
 * Description: The project style sheet.
+* Citation: All code in this file without citation is original.
 */
 
 body {
-  font-family: system-ui, Avenir, Arial, Helvetica, sans-serif;
-  background-color: #F1F2EE;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #F1F1F1;
   color: #070707;
-  margin: 50px 60px;
+  margin: 50px 50px 20px 50px;
   padding: 0px;
   height: 100%;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  border: none;
+}
+
+footer {
+  text-align: right;
+  margin-top: 30px;
+  border: none;
+  color: #7E7E7E;
+}
+
+div {
+  margin: 0px;
+  padding: 0px;
+  border: none;
 }
 
 nav {
   text-align: left;
-  font-weight: 700;
   font-size: 1.2em;
   color: #242424;
   margin-left: 0em;
@@ -27,22 +40,25 @@ nav {
 }
 
 a {
-  font-weight: 500;
   color: #7E7E7E;
-  text-decoration: inherit;
-  padding: 0em 1em 0em 0em;
+  text-decoration: none;
+  margin: 0em 1.5em 0em 0em;
 }
 
 a:hover {
-  color: #E53D00;
+  color: #070707;
+  text-decoration: underline;
+}
+
+a:active, a:focus {
+  color: #070707;
+  text-decoration: underline;
 }
 
 h1 {
-  padding: 1em 0em 0em 0em;
   font-size: 2em;
   color: #242424;
-  line-height: 1.1;
-  margin-bottom: 10px;
+  margin: 40px 0px 10px 0px;
 }
 
 h2 {
@@ -55,23 +71,50 @@ p {
 }
 
 table {
-  font-size: 1.1em;
-  border-collapse: collapse;
+  border: 1px solid #242424;
+  font-size: 1em;
   text-align: left;
   margin: 20px 0px 10px 0px;
 }
 
-caption {
-  text-align: left;
-  font-weight: 700;
-  font-size: 1.2em;
-  margin-bottom: 10px;
-  color: #242424;
+#table_locations th:nth-child(1),
+#table_locations td:nth-child(1),
+#table_employees th:nth-child(1),
+#table_employees th:nth-child(7),
+#table_employees td:nth-child(1),
+#table_employees td:nth-child(7),
+#table_customers th:nth-child(1),
+#table_customers td:nth-child(1),
+#table_services th:nth-child(1),
+#table_services th:nth-child(4),
+#table_services td:nth-child(1),
+#table_services td:nth-child(4),
+#table_invoices th:nth-child(1),
+#table_invoices th:nth-child(2),
+#table_invoices th:nth-child(4),
+#table_invoices th:nth-child(6),
+#table_invoices th:nth-child(9),
+#table_invoices td:nth-child(1),
+#table_invoices td:nth-child(2),
+#table_invoices td:nth-child(4),
+#table_invoices td:nth-child(6),
+#table_invoices td:nth-child(9),
+#table_invoices_services th:nth-child(1),
+#table_invoices_services th:nth-child(2),
+#table_invoices_services th:nth-child(3),
+#table_invoices_services th:nth-child(5),
+#table_invoices_services th:nth-child(6),
+#table_invoices_services td:nth-child(1),
+#table_invoices_services td:nth-child(2),
+#table_invoices_services td:nth-child(3),
+#table_invoices_services td:nth-child(5),
+#table_invoices_services td:nth-child(6) {
+  text-align: right;
 }
 
 th, td {
-  border: 2px solid #070707;
-  padding: 1px 6px 2px 6px;
+  border: 1px solid #242424;
+  padding: 4px 6px 3px 6px;
 }
 
 th {
@@ -79,77 +122,79 @@ th {
 }
 
 tr:hover {
-  background-color: #DCF763;
+  background-color: #E4E4E4;
 }
 
-table a {
-  padding: 0em;
+table button {
+  padding: 4px 5px 2px 5px;
+  margin: 0px;
+  font-size: 1em;
+  height: 100%;
+  width: 100%;
+  color: #7E7E7E;
+  border: none;
+  background-color: transparent;
+}
+
+table button:hover {
+  color: #070707;
+}
+
+.no_border {
+  border: transparent;
 }
 
 form {
-  font-size: 1.1em;
-  margin-top: 30px;
+  font-size: 1em;
+  margin: 0px;
+  padding: 0px;
+}
+
+form input, form select {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  font: inherit;
+  color: #070707;
+  border: none;
+  outline: none;
+  padding: 0px;
+  margin: 0px;
 }
 
 form input {
-  border-radius: 8px;
-  border: 2px solid transparent;
-  background-color: #F9FAF8;
-  padding: 10px 10px;
-  margin-right: 15px;
-  margin-left: 5px;
+  padding-left: 5px;
+  padding-right: 2px;
 }
 
-form input:hover {
-  border-color: #242424;
-}
-
-form input:focus {
-  background-color: #FFFFFF;
-}
-
-form select {
-  border-radius: 8px;
-  border: 2px solid transparent;
-  background-color: #F9FAF8;
-  padding: 10px;
-  appearance: none;
-  margin-right: 15px;
-  margin-left: 5px;
-}
-
-form select:hover {
-  border-color: #242424;
-}
-
-form select:focus {
-  background-color: #FFFFFF;
-}
-
-form button {
-  color: #242424;
-  font-size: 1em;
-  padding: 7px 20px;
-  background-color: #F9FAF8;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  margin-left: 20px;
-}
-
-form button:hover {
+form input:hover, form select:hover {
   color: #070707;
-  background-color: #FFFFFF;
-  border-color: transparent;
+  border: 0px solid transparent;
 }
 
-form button:active {
+form input:focus, form select:focus {
   color: #070707;
-  background-color: #F9FAF8;
-  border-color: transparent;
+  border: 0px solid transparent;
 }
 
-form button:focus {
+form input:active, form select:active {
   color: #070707;
-  background-color: #F9FAF8;
-  border-color: transparent;
+  border: 0px solid transparent;
+}
+
+.interactive_cell {
+  background-color: transparent;
+  padding: 0px;
+}
+
+.interactive_cell:hover,
+.interactive_cell:focus {
+  background-color: #F1F1F1;
+  color: #070707;
+}
+
+.interactive_cell:active {
+  background-color: transparent;
+  color: #070707;
 }
