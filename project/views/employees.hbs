@@ -36,17 +36,17 @@ Citation: All code in this file without citation is original.
         <td>{{this.id_location}}</td>
         <td>{{this.name_location}}</td>
         <td class="interactive_cell">
-          <button onclick="window.location.href='/edit_employee'">Edit</button>
+          <button type="button" onclick="window.location.href='/edit_employee?id={{this.id_employee}}'">Edit</button>
         </td>
         <td class="interactive_cell">
-          <button onclick="window.location.href='/employees'">Delete</button>
+          <button type="button" onclick="window.location.href='/delete_employee?id={{this.id_employee}}'">Delete</button>
         </td>
       </tr>
       {{/each}}
       <tr>
         <td colspan="8"></td>
         <td colspan="2" style="text-align: center;" class="interactive_cell">
-          <button onclick="window.location.href='/add_employee'">Add</button>
+          <button type="button" onclick="window.location.href='/add_employee'">Add</button>
         </td>
       </tr>
     </tbody>

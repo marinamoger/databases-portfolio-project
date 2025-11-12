@@ -28,17 +28,17 @@ Citation: All code in this file without citation is original.
         <td>{{this.description}}</td>
         <td>{{this.price}}</td>
         <td class="interactive_cell">
-          <button onclick="window.location.href='/edit_service'">Edit</button>
+          <button type="button" onclick="window.location.href='/edit_service?id={{this.id_service}}'">Edit</button>
         </td>
         <td class="interactive_cell">
-          <button onclick="window.location.href='/services'">Delete</button>
+          <button type="button" onclick="window.location.href='/delete_service?id={{this.id_service}}'">Delete</button>
         </td>
       </tr>
       {{/each}}
       <tr>
         <td colspan="4"></td>
         <td colspan="2" style="text-align: center;" class="interactive_cell">
-          <button onclick="window.location.href='/add_service'">Add</button>
+          <button type="button" onclick="window.location.href='/add_service'">Add</button>
         </td>
       </tr>
     </tbody>

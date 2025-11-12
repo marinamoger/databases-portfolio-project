@@ -9,7 +9,7 @@ Citation: All code in this file without citation is original.
 <h1>Add Service</h1>
 <div>
   {{! CREATE form }}
-  <form>
+  <form method='POST' action="/service/create">
     <table>
       <thead>
         <tr>
@@ -25,16 +25,16 @@ Citation: All code in this file without citation is original.
             <input type="text" name="create_name" id="create_name" placeholder="Enter Name" required/>
           </td>
           <td class="interactive_cell">
-            <input type="text" name="create_description" id="create_description" placeholder="Enter Description" required/>
+            <input type="text" name="create_description" id="create_description" placeholder="Enter Description"/>
           </td>
           <td class="interactive_cell">
-            <input type="number" name="create_price" id="create_price" placeholder="Enter Price" required/>
+            <input type="number" name="create_price" id="create_price" step="0.01" placeholder="Enter Price" required/>
           </td>
           <td class="interactive_cell">
             <button type="submit">Confirm</button>
           </td>
           <td class="interactive_cell">
-            <button onclick="window.location.href='/services'">Cancel</a>
+            <button type="button" onclick="window.location.href='/services'">Cancel</a>
           </td>
         </tr>
       </tbody>

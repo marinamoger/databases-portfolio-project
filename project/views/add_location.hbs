@@ -9,7 +9,7 @@ Citation: All code in this file without citation is original.
 <h1>Add Location</h1>
 <div>
   {{! CREATE form }}
-  <form>
+  <form method='POST' action="/location/create">
     <table>
       <thead>
         <tr>
@@ -30,7 +30,7 @@ Citation: All code in this file without citation is original.
             <button type="submit">Confirm</button>
           </td>
           <td class="interactive_cell">
-            <button onclick="window.location.href='/locations'">Cancel</a>
+            <button type="button" onclick="window.location.href='/locations'">Cancel</a>
           </td>
         </tr>
       </tbody>

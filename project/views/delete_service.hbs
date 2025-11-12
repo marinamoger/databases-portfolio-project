@@ -6,15 +6,16 @@ Description: The project's edit invoice page.
 Citation: All code in this file without citation is original.
 -->
 
-<h1>Edit Service</h1>
+<h1>Delete Service</h1>
 {{#if service}}
 <div>
-  {{! UPDATE form }}
-  <form method='POST' action="/service/update">
-    <input type="hidden" name="update_id_service" id="update_id_service" value="{{service.id_service}}">
-    <table>
+  {{! DELETE form }}
+  <form method='POST' action="/service/delete">
+    <input type="hidden" name="delete_id_service" id="delete_id_service" value="{{service.id_service}}">
+    <table id="table_delete_service">
       <thead>
         <tr>
+          <th>Service ID</th>
           <th>Name</th>
           <th>Description</th>
           <th>List Price</th>
@@ -23,15 +24,10 @@ Citation: All code in this file without citation is original.
       </thead>
       <tbody>
         <tr>
-          <td class="interactive_cell">
-            <input type="text" name="update_name" id="update_name" value="{{service.name}}" required/>
-          </td>
-          <td class="interactive_cell">
-            <input type="text" name="update_description" id="update_description" value="{{service.description}}"/>
-          </td>
-          <td class="interactive_cell">
-            <input type="number" name="update_price" id="update_price" step="0.01" value="{{service.price}}" required/>
-          </td>
+          <td>{{service.id_service}}</td>
+          <td>{{service.name}}</td>
+          <td>{{service.description}}</td>
+          <td>{{service.price}}</td>
           <td class="interactive_cell">
             <button type="submit">Confirm</button>
           </td>

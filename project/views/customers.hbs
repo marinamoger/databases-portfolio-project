@@ -34,17 +34,17 @@ Citation: All code in this file without citation is original.
         <td>{{this.email_address}}</td>
         <td>{{this.address}}</td>
         <td class="interactive_cell">
-          <button onclick="window.location.href='/edit_customer'">Edit</button>
+          <button type="button" onclick="window.location.href='/edit_customer?id={{this.id_customer}}'">Edit</button>
         </td>
         <td class="interactive_cell">
-          <button onclick="window.location.href='/customers'">Delete</button>
+          <button type="button" onclick="window.location.href='/delete_customer?id={{this.id_customer}}'">Delete</button>
         </td>
       </tr>
       {{/each}}
       <tr>
         <td colspan="7"></td>
         <td colspan="2" style="text-align: center;" class="interactive_cell">
-          <button onclick="window.location.href='/add_customer'">Add</button>
+          <button type="button" onclick="window.location.href='/add_customer'">Add</button>
         </td>
       </tr>
     </tbody>

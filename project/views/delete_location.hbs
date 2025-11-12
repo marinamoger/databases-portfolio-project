@@ -6,15 +6,16 @@ Description: The project's edit invoice page.
 Citation: All code in this file without citation is original.
 -->
 
-<h1>Edit Location</h1>
+<h1>Delete Location</h1>
 {{#if location}}
 <div>
-  {{! UPDATE form }}
-  <form method='POST' action="/location/update">
-    <input type="hidden" name="update_id_location" id="update_id_location" value="{{location.id_location}}">
-    <table>
+  {{! DELETE form }}
+  <form method='POST' action="/location/delete">
+    <input type="hidden" name="delete_id_location" id="delete_id_location" value="{{location.id_location}}">
+    <table id="table_delete_location">
       <thead>
         <tr>
+          <th>Location ID</th>
           <th>Name</th>
           <th>Address</th>
           <th colspan="2" style="text-align: center;">Action</th>
@@ -22,12 +23,9 @@ Citation: All code in this file without citation is original.
       </thead>
       <tbody>
         <tr>
-          <td class="interactive_cell">
-            <input type="text" name="update_name" id="update_name" value="{{location.name}}" required/>
-          </td>
-          <td class="interactive_cell">
-            <input type="text" name="update_address" id="update_address" value="{{location.address}}" required/>
-          </td>
+          <td>{{location.id_location}}</td>
+          <td>{{location.name}}</td>
+          <td>{{location.address}}</td>
           <td class="interactive_cell">
             <button type="submit">Confirm</button>
           </td>
