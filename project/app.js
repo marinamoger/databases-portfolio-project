@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // Port number
-const PORT = 1045;
+const PORT = YOUR_PORT_NUM;
 
 // Database
 const db = require('./database/db-connector');
@@ -39,7 +39,7 @@ app.set('view engine', '.hbs'); // Use handlebars engin for *.hbs files
 // READ: load the home page using GET /
 app.get('/', async (req, res) => {
   try {
-    res.render('home'); // Render the home.hbs file
+    res.render('pages/home'); // Render the home.hbs file
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -55,7 +55,7 @@ app.get('/locations', async (req, res) => {
     // Create and execute queries
     const query = `CALL sp_show_locations;`;
     const [locations] = await db.query(query);
-    res.render('locations', { locations: locations[0] }); // Render the locations.hbs file
+    res.render('pages/locations', { locations: locations[0] }); // Render the locations.hbs file
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -66,7 +66,7 @@ app.get('/locations', async (req, res) => {
 // READ: load add_location page using GET /add_location
 app.get('/add_location', async (req, res) => {
   try {
-    res.render('add_location');
+    res.render('add/add_location');
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -82,9 +82,9 @@ app.get('/edit_location', async (req, res) => {
     const query = `CALL sp_find_location(?);`;
     if (Number.isInteger(Number(id)) && Number(id)) {
       const [location] = await db.query(query, [id]);
-      res.render('edit_location', { location: location[0][0] });
+      res.render('edit/edit_location', { location: location[0][0] });
     } else {
-      res.render('edit_location');
+      res.render('edit/edit_location');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -101,9 +101,9 @@ app.get('/delete_location', async (req, res) => {
     const query = `CALL sp_find_location(?);`;
     if (Number.isInteger(Number(id)) && Number(id)) {
       const [location] = await db.query(query, [id]);
-      res.render('delete_location', { location: location[0][0] });
+      res.render('delete/delete_location', { location: location[0][0] });
     } else {
-      res.render('delete_location');
+      res.render('delete/delete_location');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -120,7 +120,7 @@ app.get('/employees', async (req, res) => {
     // Create and execute queries
     const query = `CALL sp_show_employees;`;
     const [employees] = await db.query(query);
-    res.render('employees', { employees: employees[0] }); // Render the employees.hbs file
+    res.render('pages/employees', { employees: employees[0] }); // Render the employees.hbs file
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -134,7 +134,7 @@ app.get('/add_employee', async (req, res) => {
     // Create and execute queries
     const query = `CALL sp_show_locations;`;
     const [locations] = await db.query(query);
-    res.render('add_employee', { locations: locations[0] });
+    res.render('add/add_employee', { locations: locations[0] });
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -155,12 +155,12 @@ app.get('/edit_employee', async (req, res) => {
       if (employee[0][0]) {
         const date = employee[0][0].date_of_birth;
         const date_of_birth = `${date.slice(6, 10)}-${date.slice(0, 2)}-${date.slice(3, 5)}`;
-        res.render('edit_employee', { locations: locations[0], employee: employee[0][0], date_of_birth: date_of_birth });
+        res.render('edit/edit_employee', { locations: locations[0], employee: employee[0][0], date_of_birth: date_of_birth });
       } else {
-        res.render('edit_employee');
+        res.render('edit/edit_employee');
       }
     } else {
-      res.render('edit_employee');
+      res.render('edit/edit_employee');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -177,9 +177,9 @@ app.get('/delete_employee', async (req, res) => {
     const query = `CALL sp_find_employee(?);`;
     if (Number.isInteger(Number(id)) && Number(id)) {
       const [employee] = await db.query(query, [id]);
-      res.render('delete_employee', { employee: employee[0][0] });
+      res.render('delete/delete_employee', { employee: employee[0][0] });
     } else {
-      res.render('delete_employee');
+      res.render('delete/delete_employee');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -196,7 +196,7 @@ app.get('/customers', async (req, res) => {
     // Create and execute queries
     const query = `CALL sp_show_customers;`;
     const [customers] = await db.query(query);
-    res.render('customers', { customers: customers[0] }); // Render the customers.hbs file
+    res.render('pages/customers', { customers: customers[0] }); // Render the customers.hbs file
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -207,7 +207,7 @@ app.get('/customers', async (req, res) => {
 // READ: load add_customer page using GET /add_customer
 app.get('/add_customer', async (req, res) => {
   try {
-    res.render('add_customer');
+    res.render('add/add_customer');
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -226,12 +226,12 @@ app.get('/edit_customer', async (req, res) => {
       if (customer[0][0]) {
         const date = customer[0][0].date_of_birth;
         const date_of_birth = `${date.slice(6, 10)}-${date.slice(0, 2)}-${date.slice(3, 5)}`;
-        res.render('edit_customer', { customer: customer[0][0], date_of_birth: date_of_birth});
+        res.render('edit/edit_customer', { customer: customer[0][0], date_of_birth: date_of_birth});
       } else {
-        res.render('edit_customer');
+        res.render('edit/edit_customer');
       }
     } else {
-      res.render('edit_customer');
+      res.render('edit/edit_customer');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -248,9 +248,9 @@ app.get('/delete_customer', async (req, res) => {
     const query = `CALL sp_find_customer(?);`;
     if (Number.isInteger(Number(id)) && Number(id)) {
       const [customer] = await db.query(query, [id]);
-      res.render('delete_customer', { customer: customer[0][0] });
+      res.render('delete/delete_customer', { customer: customer[0][0] });
     } else {
-      res.render('delete_customer');
+      res.render('delete/delete_customer');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -267,7 +267,7 @@ app.get('/services', async (req, res) => {
     // Create and execute queries
     const query = `CALL sp_show_services;`;
     const [services] = await db.query(query);
-    res.render('services', { services: services[0] }); // Render the services.hbs file
+    res.render('pages/services', { services: services[0] }); // Render the services.hbs file
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -278,7 +278,7 @@ app.get('/services', async (req, res) => {
 // READ: load add_service page using GET /add_service
 app.get('/add_service', async (req, res) => {
   try {
-    res.render('add_service');
+    res.render('add/add_service');
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -294,9 +294,9 @@ app.get('/edit_service', async (req, res) => {
     const query = `CALL sp_find_service(?);`;
     if (Number.isInteger(Number(id)) && Number(id)) {
       const [service] = await db.query(query, [id]);
-      res.render('edit_service', { service: service[0][0] });
+      res.render('edit/edit_service', { service: service[0][0] });
     } else {
-      res.render('edit_service');
+      res.render('edit/edit_service');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -313,9 +313,9 @@ app.get('/delete_service', async (req, res) => {
     const query = `CALL sp_find_service(?);`;
     if (Number.isInteger(Number(id)) && Number(id)) {
       const [service] = await db.query(query, [id]);
-      res.render('delete_service', { service: service[0][0] });
+      res.render('delete/delete_service', { service: service[0][0] });
     } else {
-      res.render('delete_service');
+      res.render('delete/delete_service');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -334,7 +334,7 @@ app.get('/invoices', async (req, res) => {
     const query_2 = `CALL sp_show_invoices_services;`;
     const [invoices] = await db.query(query_1);
     const [invoices_services] = await db.query(query_2);
-    res.render('invoices', { invoices: invoices[0], invoices_services: invoices_services[0] });
+    res.render('pages/invoices', { invoices: invoices[0], invoices_services: invoices_services[0] });
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -352,7 +352,7 @@ app.get('/add_invoice', async (req, res) => {
     const [customers] = await db.query(query_1);
     const [employees] = await db.query(query_2);
     const [locations] = await db.query(query_3);
-    res.render('add_invoice', { customers: customers[0], employees: employees[0], locations: locations[0] });
+    res.render('add/add_invoice', { customers: customers[0], employees: employees[0], locations: locations[0] });
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -368,7 +368,7 @@ app.get('/add_invoice_service', async (req, res) => {
     const query_2 = `CALL sp_show_services;`;
     const [invoices] = await db.query(query_1);
     const [services] = await db.query(query_2);
-    res.render('add_invoice_service', { invoices: invoices[0], services: services[0] });
+    res.render('add/add_invoice_service', { invoices: invoices[0], services: services[0] });
   } catch (err) {
     console.error('Error rendering page:', err);
     // Send a generic error message to the browser
@@ -393,12 +393,12 @@ app.get('/edit_invoice', async (req, res) => {
       if (invoice[0][0]) {
       const time = invoice[0][0].date;
       const date = `${time.slice(6, 10)}-${time.slice(0, 2)}-${time.slice(3, 5)}T${time.slice(11, 19)}`;
-      res.render('edit_invoice', { customers: customers[0], employees: employees[0], locations: locations[0], invoice: invoice[0][0], date: date });
+      res.render('edit/edit_invoice', { customers: customers[0], employees: employees[0], locations: locations[0], invoice: invoice[0][0], date: date });
       } else {
-        res.render('edit_invoice');
+        res.render('edit/edit_invoice');
       }
     } else {
-      res.render('edit_invoice');
+      res.render('edit/edit_invoice');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -419,9 +419,9 @@ app.get('/edit_invoice_service', async (req, res) => {
     const [services] = await db.query(query_2);
     if (Number.isInteger(Number(id)) && Number(id)) {
       const [invoice_service] = await db.query(query_3, [id]);
-      res.render('edit_invoice_service', { invoices: invoices[0], services: services[0], invoice_service: invoice_service[0][0] });
+      res.render('edit/edit_invoice_service', { invoices: invoices[0], services: services[0], invoice_service: invoice_service[0][0] });
     } else {
-      res.render('edit_invoice_service');
+      res.render('edit/edit_invoice_service');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -438,9 +438,9 @@ app.get('/delete_invoice', async (req, res) => {
     const query = `CALL sp_find_invoice(?);`;
     if (Number.isInteger(Number(id)) && Number(id)) {
       const [invoice] = await db.query(query, [id]);
-      res.render('delete_invoice', { invoice: invoice[0][0] });
+      res.render('delete/delete_invoice', { invoice: invoice[0][0] });
     } else {
-      res.render('delete_invoice');
+      res.render('delete/delete_invoice');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -457,9 +457,9 @@ app.get('/delete_invoice_service', async (req, res) => {
     const query = `CALL sp_find_invoice_service(?);`;
     if (Number.isInteger(Number(id)) && Number(id)) {
       const [invoice_service] = await db.query(query, [id]);
-      res.render('delete_invoice_service', { invoice_service: invoice_service[0][0] });
+      res.render('delete/delete_invoice_service', { invoice_service: invoice_service[0][0] });
     } else {
-      res.render('delete_invoice_service');
+      res.render('delete/delete_invoice_service');
     }
   } catch (err) {
     console.error('Error rendering page:', err);
