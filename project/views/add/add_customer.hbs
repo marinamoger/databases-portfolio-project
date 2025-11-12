@@ -9,7 +9,7 @@ Citation: All code in this file without citation is original.
 <h1>Add Customer</h1>
 <div>
   {{! CREATE form }}
-  <form>
+  <form method='POST' action="/employee/create">
     <table>
       <thead>
         <tr>
@@ -34,19 +34,19 @@ Citation: All code in this file without citation is original.
             <input type="date" name="create_date_of_birth" id="create_date_of_birth" required/>
           </td>
           <td class="interactive_cell">
-            <input type="text" name="create_phone_number" id="create_phone_number" placeholder="(000) 000-0000" required/>
+            <input type="tel" name="create_phone_number" id="create_phone_number" pattern="\(\d{3}\) \d{3}-\d{4}|\d{10}" placeholder="(000) 000-0000" required/>
           </td>
           <td class="interactive_cell">
-            <input type="email" name="create_email_address" id="create_email_address" placeholder="Enter Email Address" required/>
+            <input type="email" name="create_email_address" id="create_email_address" placeholder="Enter Email Address"/>
           </td>
           <td class="interactive_cell">
-            <input type="text" name="create_address" id="create_address" placeholder="Enter Address" required/>
+            <input type="text" name="create_address" id="create_address" placeholder="Enter Address"/>
           </td>
           <td class="interactive_cell">
             <button type="submit">Confirm</button>
           </td>
           <td class="interactive_cell">
-            <button onclick="window.location.href='/customers'">Cancel</a>
+            <button type="button" onclick="window.location.href='/customers'">Cancel</a>
           </td>
         </tr>
       </tbody>

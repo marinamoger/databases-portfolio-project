@@ -1,0 +1,50 @@
+<!--
+Project Name: Old Mike’s Car Full-Service Transaction Management System
+Project Group: 45
+Group Members: Lei Feng, Marina Moger
+Description: The project's edit invoice page.
+Citation: All code in this file without citation is original.
+-->
+
+<h1>Delete Customer</h1>
+{{#if customer}}
+<div>
+  {{! DELETE form }}
+  <form method='POST' action="/customer/delete">
+    <input type="hidden" name="delete_id_customer" id="delete_id_customer" value="{{customer.id_customer}}">
+    <table id="table_delete_customer">
+      <thead>
+        <tr>
+          <th>Customer ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Date of Birth</th>
+          <th>Phone Number</th>
+          <th>Email Address</th>
+          <th>Address</th>
+          <th colspan="2" style="text-align: center;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{customer.id_customer}}</td>
+          <td>{{customer.first_name}}</td>
+          <td>{{customer.last_name}}</td>
+          <td>{{customer.date_of_birth}}</td>
+          <td>{{customer.phone_number}}</td>
+          <td>{{customer.email_address}}</td>
+          <td>{{customer.address}}</td>
+          <td class="interactive_cell">
+            <button type="submit">Confirm</button>
+          </td>
+          <td class="interactive_cell">
+            <button type="button" onclick="window.location.href='/customers'">Cancel</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+{{else}}
+<p>No such customer existed.</p>
+{{/if}}

@@ -39,17 +39,17 @@ Citation: All code in this file without citation is original.
         <td>{{this.date}}</td>
         <td>{{this.total}}</td>
         <td class="interactive_cell">
-          <button onclick="window.location.href='/edit_invoice'">Edit</button>
+          <button type="button" onclick="window.location.href='/edit_invoice?id={{this.id_invoice}}'">Edit</button>
         </td>
         <td class="interactive_cell">
-          <button onclick="window.location.href='/invoices'">Delete</button>
+          <button type="button" onclick="window.location.href='/delete_invoice?id={{this.id_invoice}}'">Delete</button>
         </td>
       </tr>
       {{/each}}
       <tr>
         <td colspan="9"></td>
         <td colspan="2" style="text-align: center;" class="interactive_cell">
-          <button onclick="window.location.href='/add_invoice'">Add</button>
+          <button type="button" onclick="window.location.href='/add_invoice'">Add</button>
         </td>
       </tr>
     </tbody>
@@ -81,17 +81,17 @@ Citation: All code in this file without citation is original.
         <td>{{this.list_price}}</td>
         <td>{{this.sale_price}}</td>
         <td class="interactive_cell">
-          <button onclick="window.location.href='/edit_invoice_service'">Edit</button>
+          <button type="button" onclick="window.location.href='/edit_invoice_service?id={{this.id_invoice_service}}'">Edit</button>
         </td>
         <td class="interactive_cell">
-          <button onclick="window.location.href='/invoices'">Delete</button>
+          <button type="button" onclick="window.location.href='/delete_invoice_service?id={{this.id_invoice_service}}'">Delete</button>
         </td>
       </tr>
       {{/each}}
       <tr>
         <td colspan="6"></td>
         <td colspan="2" style="text-align: center;" class="interactive_cell">
-          <button onclick="window.location.href='/add_invoice_service'">Add</button>
+          <button type="button" onclick="window.location.href='/add_invoice_service'">Add</button>
         </td>
       </tr>
     </tbody>

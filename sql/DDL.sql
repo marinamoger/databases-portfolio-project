@@ -10,6 +10,7 @@
 *         phpMyAdmin or the MySQL CLI using the source query.
 */
 
+-- Clean up the database
 SET FOREGIN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS Locations, Employees, Customers, Services, Invoices, Invoices_Services;
 DROP VIEW IF EXISTS v_locations, v_employees, v_customers, v_services, v_invoices, v_invoices_services;
@@ -191,7 +192,7 @@ SELECT
   Employees.id_employee,
   Employees.first_name,
   Employees.last_name,
-  Employees.date_of_birth,
+  DATE_FORMAT(Employees.date_of_birth, '%m/%d/%Y') AS date_of_birth,
   Employees.phone_number,
   Employees.email_address,
   Locations.name AS name_location,
@@ -203,7 +204,15 @@ ORDER BY Employees.id_employee;
 
 -- Create view for Customers
 CREATE VIEW v_customers AS
-SELECT * FROM Customers;
+SELECT
+  id_customer,
+  first_name,
+  last_name,
+  DATE_FORMAT(date_of_birth, '%m/%d/%Y') AS date_of_birth,
+  phone_number,
+  email_address,
+  address
+FROM Customers;
 
 -- Create view for Services
 CREATE VIEW v_services AS
@@ -219,7 +228,7 @@ SELECT
   Invoices.id_employee,
   Locations.name AS name_location,
   Invoices.id_location,
-  Invoices.date,
+  DATE_FORMAT(Invoices.date, '%m/%d/%Y %H:%i:%s') AS date,
   Invoices.total
 FROM Invoices
 JOIN Customers
@@ -243,4 +252,123 @@ FROM Invoices_Services
 JOIN Services
 ON Invoices_Services.id_service = Services.id_service
 ORDER BY Invoices_Services.id_invoice_service;
+
+/*
+* Create procedures
+*/
+DELIMITER //
+
+-- Create procedure sp_show_locations
+DROP PROCEDURE IF EXISTS sp_show_locations;
+CREATE PROCEDURE sp_show_locations ()
+BEGIN
+  SELECT * FROM v_locations;
+END //
+
+-- Create procedure sp_show_employees
+DROP PROCEDURE IF EXISTS sp_show_employees;
+CREATE PROCEDURE sp_show_employees ()
+BEGIN
+  SELECT * FROM v_employees;
+END //
+
+-- Create procedure sp_show_customers
+DROP PROCEDURE IF EXISTS sp_show_customers;
+CREATE PROCEDURE sp_show_customers ()
+BEGIN
+  SELECT * FROM v_customers;
+END //
+
+-- Create procedure sp_show_services
+DROP PROCEDURE IF EXISTS sp_show_services;
+CREATE PROCEDURE sp_show_services ()
+BEGIN
+  SELECT * FROM v_services;
+END //
+
+-- Create procedure sp_show_invoices
+DROP PROCEDURE IF EXISTS sp_show_invoices;
+CREATE PROCEDURE sp_show_invoices ()
+BEGIN
+  SELECT * FROM v_invoices;
+END //
+
+-- Create procedure sp_show_invoices_services
+DROP PROCEDURE IF EXISTS sp_show_invoices_services;
+CREATE PROCEDURE sp_show_invoices_services ()
+BEGIN
+  SELECT * FROM v_invoices_services;
+END //
+
+-- Create procedure sp_find_location
+DROP PROCEDURE IF EXISTS sp_find_location;
+CREATE PROCEDURE sp_find_location (
+  IN input_id INT
+)
+BEGIN
+  SELECT * FROM v_locations WHERE id_location = input_id;
+END //
+
+-- Create procedure sp_find_employee
+DROP PROCEDURE IF EXISTS sp_find_employee;
+CREATE PROCEDURE sp_find_employee (
+  IN input_id INT
+)
+BEGIN
+  SELECT * FROM v_employees WHERE id_employee = input_id;
+END //
+
+-- Create procedure sp_find_customer
+DROP PROCEDURE IF EXISTS sp_find_customer;
+CREATE PROCEDURE sp_find_customer (
+  IN input_id INT
+)
+BEGIN
+  SELECT * FROM v_customers WHERE id_customer = input_id;
+END //
+
+-- Create procedure sp_find_service
+DROP PROCEDURE IF EXISTS sp_find_service;
+CREATE PROCEDURE sp_find_service (
+  IN input_id INT
+)
+BEGIN
+  SELECT * FROM v_services WHERE id_service = input_id;
+END //
+
+-- Create procedure sp_find_invoice
+DROP PROCEDURE IF EXISTS sp_find_invoice;
+CREATE PROCEDURE sp_find_invoice (
+  IN input_id INT
+)
+BEGIN
+  SELECT * FROM v_invoices WHERE id_invoice = input_id;
+END //
+
+-- Create procedure sp_find_invoice_service
+DROP PROCEDURE IF EXISTS sp_find_invoice_service;
+CREATE PROCEDURE sp_find_invoice_service (
+  IN input_id INT
+)
+BEGIN
+  SELECT
+    v_invoices_services.id_invoice_service,
+    v_invoices.name_customer,
+    v_invoices.name_employee,
+    v_invoices.date,
+    v_invoices_services.id_invoice,
+    v_invoices_services.name_service,
+    v_invoices_services.id_service,
+    v_invoices_services.list_price,
+    v_invoices_services.sale_price
+    FROM v_invoices_services
+    JOIN v_invoices
+    ON v_invoices_services.id_invoice = v_invoices.id_invoice
+    WHERE v_invoices_services.id_invoice_service = input_id;
+END //
+
+DELIMITER ;
+
+-- Finish
+SET FOREIGN_KEY_CHECKS = 1;
 

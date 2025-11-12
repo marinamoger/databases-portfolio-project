@@ -6,10 +6,12 @@ Description: The project's edit invoice page.
 Citation: All code in this file without citation is original.
 -->
 
-<h1>Add Employee</h1>
+<h1>Edit Employee</h1>
+{{#if employee}}
 <div>
-  {{! CREATE form }}
-  <form>
+  {{! UPDATE form }}
+  <form method='POST' action="/employee/update">
+    <input type="hidden" name="update_id_employee" id="update_id_employee" value="{{employee.id_employee}}">
     <table>
       <thead>
         <tr>
@@ -25,23 +27,23 @@ Citation: All code in this file without citation is original.
       <tbody>
         <tr>
           <td class="interactive_cell">
-            <input type="text" name="update_first_name" id="update_first_name" placeholder="Enter First Name" required/>
+            <input type="text" name="create_first_name" id="create_first_name" value="{{employee.first_name}}" required/>
           </td>
           <td class="interactive_cell">
-            <input type="text" name="update_last_name" id="update_last_name" placeholder="Enter Last Name" required/>
+            <input type="text" name="create_last_name" id="create_last_name" value="{{employee.last_name}}" required/>
           </td>
           <td class="interactive_cell">
-            <input type="date" name="update_date_of_birth" id="update_date_of_birth" required/>
+            <input type="date" name="create_date_of_birth" id="create_date_of_birth" value="{{date_of_birth}}" required/>
           </td>
           <td class="interactive_cell">
-            <input type="text" name="update_phone_number" id="update_phone_number" placeholder="(000) 000-0000" required/>
+            <input type="tel" name="create_phone_number" id="create_phone_number" pattern="\(\d{3}\) \d{3}-\d{4}|\d{10}" value="{{employee.phone_number}}" required/>
           </td>
           <td class="interactive_cell">
-            <input type="email" name="update_email_address" id="update_email_address" placeholder="Enter Email Address" required/>
+            <input type="email" name="create_email_address" id="create_email_address" value="{{employee.email_address}}" required/>
           </td>
           <td class="interactive_cell">
-            <select name="update_id_location" id="update_id_location" required>
-              <option value="" disabled selected hidden>Select</option>
+            <select name="create_id_location" id="create_id_location" required>
+              <option value="{{employee.id_location}}" selected hidden>{{employee.id_location}} - {{employee.name_location}}</option>
               {{#each locations}}
               <option value="{{this.id_location}}">{{this.id_location}} - {{this.name}}</option>
               {{/each}}
@@ -51,10 +53,13 @@ Citation: All code in this file without citation is original.
             <button type="submit">Confirm</button>
           </td>
           <td class="interactive_cell">
-            <button onclick="window.location.href='/employees'">Cancel</a>
+            <button type="button" onclick="window.location.href='/employees'">Cancel</a>
           </td>
         </tr>
       </tbody>
     </table>
   </form>
 </div>
+{{else}}
+<p>No such employee existed.</p>
+{{/if}}

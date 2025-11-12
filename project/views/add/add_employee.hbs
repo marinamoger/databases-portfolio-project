@@ -6,10 +6,10 @@ Description: The project's edit invoice page.
 Citation: All code in this file without citation is original.
 -->
 
-<h1>Edit Customer</h1>
+<h1>Add Employee</h1>
 <div>
-  {{! UPDATE form }}
-  <form>
+  {{! CREATE form }}
+  <form method='POST' action="/employee/create">
     <table>
       <thead>
         <tr>
@@ -18,7 +18,7 @@ Citation: All code in this file without citation is original.
           <th>Date of Birth</th>
           <th>Phone Number</th>
           <th>Email Address</th>
-          <th>Address</th>
+          <th>Location ID</th>
           <th colspan="2" style="text-align: center;">Action</th>
         </tr>
       </thead>
@@ -34,19 +34,24 @@ Citation: All code in this file without citation is original.
             <input type="date" name="update_date_of_birth" id="update_date_of_birth" required/>
           </td>
           <td class="interactive_cell">
-            <input type="text" name="update_phone_number" id="update_phone_number" placeholder="Enter Phone Number" required/>
+            <input type="tel" name="update_phone_number" id="update_phone_number" pattern="\(\d{3}\) \d{3}-\d{4}|\d{10}" placeholder="(000) 000-0000" required/>
           </td>
           <td class="interactive_cell">
             <input type="email" name="update_email_address" id="update_email_address" placeholder="Enter Email Address" required/>
           </td>
           <td class="interactive_cell">
-            <input type="text" name="update_address" id="update_address" placeholder="Enter Address" required/>
+            <select name="update_id_location" id="update_id_location" required>
+              <option value="" disabled selected hidden>Select</option>
+              {{#each locations}}
+              <option value="{{this.id_location}}">{{this.id_location}} - {{this.name}}</option>
+              {{/each}}
+            </select>
           </td>
           <td class="interactive_cell">
             <button type="submit">Confirm</button>
           </td>
           <td class="interactive_cell">
-            <button onclick="window.location.href='/customers'">Cancel</a>
+            <button type="button" onclick="window.location.href='/employees'">Cancel</a>
           </td>
         </tr>
       </tbody>

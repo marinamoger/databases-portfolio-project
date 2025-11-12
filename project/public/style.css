@@ -108,7 +108,39 @@ table {
 #table_invoices_services td:nth-child(2),
 #table_invoices_services td:nth-child(3),
 #table_invoices_services td:nth-child(5),
-#table_invoices_services td:nth-child(6) {
+#table_invoices_services td:nth-child(6),
+#table_delete_location th:nth-child(1),
+#table_delete_employee th:nth-child(1),
+#table_delete_employee th:nth-child(7),
+#table_delete_customer th:nth-child(1),
+#table_delete_service th:nth-child(1),
+#table_delete_service th:nth-child(4),
+#table_delete_invoice th:nth-child(1),
+#table_delete_invoice th:nth-child(2),
+#table_delete_invoice th:nth-child(4),
+#table_delete_invoice th:nth-child(6),
+#table_delete_invoice th:nth-child(9),
+#table_delete_invoice_service th:nth-child(1),
+#table_delete_invoice_service th:nth-child(5),
+#table_delete_invoice_service th:nth-child(6),
+#table_delete_invoice_service th:nth-child(8),
+#table_delete_invoice_service th:nth-child(9),
+#table_delete_location td:nth-child(1),
+#table_delete_employee td:nth-child(1),
+#table_delete_employee td:nth-child(7),
+#table_delete_customer td:nth-child(1),
+#table_delete_service td:nth-child(1),
+#table_delete_service td:nth-child(4),
+#table_delete_invoice td:nth-child(1),
+#table_delete_invoice td:nth-child(2),
+#table_delete_invoice td:nth-child(4),
+#table_delete_invoice td:nth-child(6),
+#table_delete_invoice td:nth-child(9),
+#table_delete_invoice_service td:nth-child(1),
+#table_delete_invoice_service td:nth-child(5),
+#table_delete_invoice_service td:nth-child(6),
+#table_delete_invoice_service td:nth-child(8),
+#table_delete_invoice_service td:nth-child(9) {
   text-align: right;
 }
 
@@ -197,4 +229,18 @@ form input:active, form select:active {
 .interactive_cell:active {
   background-color: transparent;
   color: #070707;
+}
+
+#update_name,
+#create_name,
+#update_email_address,
+#create_email_address {
+  width: 15em;
+}
+
+#update_address,
+#create_address,
+#update_description,
+#create_description {
+  width: 30em;
 }

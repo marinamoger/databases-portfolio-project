@@ -1,0 +1,44 @@
+<!--
+Project Name: Old Mike’s Car Full-Service Transaction Management System
+Project Group: 45
+Group Members: Lei Feng, Marina Moger
+Description: The project's edit invoice page.
+Citation: All code in this file without citation is original.
+-->
+
+<h1>Delete Service</h1>
+{{#if service}}
+<div>
+  {{! DELETE form }}
+  <form method='POST' action="/service/delete">
+    <input type="hidden" name="delete_id_service" id="delete_id_service" value="{{service.id_service}}">
+    <table id="table_delete_service">
+      <thead>
+        <tr>
+          <th>Service ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>List Price</th>
+          <th colspan="2" style="text-align: center;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{service.id_service}}</td>
+          <td>{{service.name}}</td>
+          <td>{{service.description}}</td>
+          <td>{{service.price}}</td>
+          <td class="interactive_cell">
+            <button type="submit">Confirm</button>
+          </td>
+          <td class="interactive_cell">
+            <button type="button" onclick="window.location.href='/services'">Cancel</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+{{else}}
+<p>No such service existed.</p>
+{{/if}}

@@ -6,16 +6,15 @@ Description: The project's edit invoice page.
 Citation: All code in this file without citation is original.
 -->
 
-<h1>Add Service</h1>
+<h1>Add Location</h1>
 <div>
   {{! CREATE form }}
-  <form>
+  <form method='POST' action="/location/create">
     <table>
       <thead>
         <tr>
           <th>Name</th>
-          <th>Description</th>
-          <th>List Price</th>
+          <th>Address</th>
           <th colspan="2" style="text-align: center;">Action</th>
         </tr>
       </thead>
@@ -25,16 +24,13 @@ Citation: All code in this file without citation is original.
             <input type="text" name="create_name" id="create_name" placeholder="Enter Name" required/>
           </td>
           <td class="interactive_cell">
-            <input type="text" name="create_description" id="create_description" placeholder="Enter Description" required/>
-          </td>
-          <td class="interactive_cell">
-            <input type="number" name="create_price" id="create_price" placeholder="Enter Price" required/>
+            <input type="text" name="create_address" id="create_address" placeholder="Enter Address" required/>
           </td>
           <td class="interactive_cell">
             <button type="submit">Confirm</button>
           </td>
           <td class="interactive_cell">
-            <button onclick="window.location.href='/services'">Cancel</a>
+            <button type="button" onclick="window.location.href='/locations'">Cancel</a>
           </td>
         </tr>
       </tbody>
