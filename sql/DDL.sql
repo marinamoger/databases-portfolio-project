@@ -11,7 +11,7 @@
 */
 
 -- Clean up the database
-SET FOREGIN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS Locations, Employees, Customers, Services, Invoices, Invoices_Services;
 DROP VIEW IF EXISTS v_locations, v_employees, v_customers, v_services, v_invoices, v_invoices_services;
 
