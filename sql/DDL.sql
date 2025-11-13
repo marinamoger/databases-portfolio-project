@@ -259,49 +259,49 @@ ORDER BY Invoices_Services.id_invoice_service;
 DELIMITER //
 
 -- Create procedure sp_show_locations
-DROP PROCEDURE IF EXISTS sp_show_locations;
+DROP PROCEDURE IF EXISTS sp_show_locations //
 CREATE PROCEDURE sp_show_locations ()
 BEGIN
   SELECT * FROM v_locations;
 END //
 
 -- Create procedure sp_show_employees
-DROP PROCEDURE IF EXISTS sp_show_employees;
+DROP PROCEDURE IF EXISTS sp_show_employees //
 CREATE PROCEDURE sp_show_employees ()
 BEGIN
   SELECT * FROM v_employees;
 END //
 
 -- Create procedure sp_show_customers
-DROP PROCEDURE IF EXISTS sp_show_customers;
+DROP PROCEDURE IF EXISTS sp_show_customers //
 CREATE PROCEDURE sp_show_customers ()
 BEGIN
   SELECT * FROM v_customers;
 END //
 
 -- Create procedure sp_show_services
-DROP PROCEDURE IF EXISTS sp_show_services;
+DROP PROCEDURE IF EXISTS sp_show_services //
 CREATE PROCEDURE sp_show_services ()
 BEGIN
   SELECT * FROM v_services;
 END //
 
 -- Create procedure sp_show_invoices
-DROP PROCEDURE IF EXISTS sp_show_invoices;
+DROP PROCEDURE IF EXISTS sp_show_invoices //
 CREATE PROCEDURE sp_show_invoices ()
 BEGIN
   SELECT * FROM v_invoices;
 END //
 
 -- Create procedure sp_show_invoices_services
-DROP PROCEDURE IF EXISTS sp_show_invoices_services;
+DROP PROCEDURE IF EXISTS sp_show_invoices_services //
 CREATE PROCEDURE sp_show_invoices_services ()
 BEGIN
   SELECT * FROM v_invoices_services;
 END //
 
 -- Create procedure sp_find_location
-DROP PROCEDURE IF EXISTS sp_find_location;
+DROP PROCEDURE IF EXISTS sp_find_location //
 CREATE PROCEDURE sp_find_location (
   IN input_id INT
 )
@@ -310,7 +310,7 @@ BEGIN
 END //
 
 -- Create procedure sp_find_employee
-DROP PROCEDURE IF EXISTS sp_find_employee;
+DROP PROCEDURE IF EXISTS sp_find_employee //
 CREATE PROCEDURE sp_find_employee (
   IN input_id INT
 )
@@ -319,7 +319,7 @@ BEGIN
 END //
 
 -- Create procedure sp_find_customer
-DROP PROCEDURE IF EXISTS sp_find_customer;
+DROP PROCEDURE IF EXISTS sp_find_customer //
 CREATE PROCEDURE sp_find_customer (
   IN input_id INT
 )
@@ -328,7 +328,7 @@ BEGIN
 END //
 
 -- Create procedure sp_find_service
-DROP PROCEDURE IF EXISTS sp_find_service;
+DROP PROCEDURE IF EXISTS sp_find_service //
 CREATE PROCEDURE sp_find_service (
   IN input_id INT
 )
@@ -337,7 +337,7 @@ BEGIN
 END //
 
 -- Create procedure sp_find_invoice
-DROP PROCEDURE IF EXISTS sp_find_invoice;
+DROP PROCEDURE IF EXISTS sp_find_invoice //
 CREATE PROCEDURE sp_find_invoice (
   IN input_id INT
 )
@@ -346,7 +346,7 @@ BEGIN
 END //
 
 -- Create procedure sp_find_invoice_service
-DROP PROCEDURE IF EXISTS sp_find_invoice_service;
+DROP PROCEDURE IF EXISTS sp_find_invoice_service //
 CREATE PROCEDURE sp_find_invoice_service (
   IN input_id INT
 )
