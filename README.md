@@ -30,5 +30,6 @@ You need to rebuild the app before running it. To do so, please follow the steps
     ```
 
    On the school server, any number within [1024 - 65535] exclusive is acceptable. Numbers in [0 - 1024] inclusive are privileged. Avoid numbers like 1234 (incremental increases), or 2222 (repeating) as students often prefer these easier numbers to type in and are often already in use.
-8. Run `npm run development` for development build, or `npm run production` for production build.  
-9. To stop the production build by `npm run stop_production`.  
+8. Use the `DDL.sql` file located in the `sql` folder to import the database.  
+9. Run `npm run development` for development build, or `npm run production` for production build.  
+10. To stop the production build by `npm run stop_production`.  
