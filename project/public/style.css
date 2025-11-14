@@ -121,7 +121,7 @@ table {
 #table_delete_invoice th:nth-child(6),
 #table_delete_invoice th:nth-child(9),
 #table_delete_invoice_service th:nth-child(1),
-#table_delete_invoice_service th:nth-child(5),
+#table_delete_invoice_service th:nth-child(2),
 #table_delete_invoice_service th:nth-child(6),
 #table_delete_invoice_service th:nth-child(8),
 #table_delete_invoice_service th:nth-child(9),
@@ -137,7 +137,7 @@ table {
 #table_delete_invoice td:nth-child(6),
 #table_delete_invoice td:nth-child(9),
 #table_delete_invoice_service td:nth-child(1),
-#table_delete_invoice_service td:nth-child(5),
+#table_delete_invoice_service td:nth-child(2),
 #table_delete_invoice_service td:nth-child(6),
 #table_delete_invoice_service td:nth-child(8),
 #table_delete_invoice_service td:nth-child(9) {
