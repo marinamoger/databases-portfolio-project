@@ -1,9 +1,8 @@
 /*
-* Project Step 3 Draft Data Manipulation Queries
+* Project Data Manipulation Queries
 * Project Name: Old Mike’s Car Full-Service Transaction Management System
 * Project Group: 45
 * Group Members: Lei Feng, Marina Moger
-* Due Date: 11/06/2025
 * Description: Data Manipulation Queries for the project web app.
 * Citation: All code in this file without citation is original.
 */
@@ -106,14 +105,13 @@ INSERT INTO Invoices_Services (id_invoice, id_service, sale_price)
 VALUES (
   @create_id_invoice,
   @create_id_service,
-  IFNULL(@create_sale_price, (SELECT sale_price FROM Services WHERE id_service = @create_id_service))
+  IFNULL(@create_sale_price, (SELECT price FROM Services WHERE id_service = @create_id_service))
 );
 
 UPDATE Invoices
 SET total = (
     SELECT SUM(sale_price)
     FROM Invoices_Services
-    GROUP BY id_invoice
     WHERE id_invoice = @create_id_invoice
   )
 WHERE id_invoice = @create_id_invoice;

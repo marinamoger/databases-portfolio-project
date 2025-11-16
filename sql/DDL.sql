@@ -1,9 +1,8 @@
 /*
-* Project Step 3 Draft Data Definition Queries
+* Project Data Definition Queries
 * Project Name: Old Mike’s Car Full-Service Transaction Management System
 * Project Group: 45
 * Group Members: Lei Feng, Marina Moger
-* Due Date: 11/06/2025
 * Description: Create and populate tables for the project database.
 * Citation: All code in this file without citation is original.
 * Import: Please drop all existing tables before importing this file via
@@ -13,7 +12,6 @@
 -- Clean up the database
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS Locations, Employees, Customers, Services, Invoices, Invoices_Services;
-DROP VIEW IF EXISTS v_locations, v_employees, v_customers, v_services, v_invoices, v_invoices_services;
 
 /*
 * Create tables
@@ -21,21 +19,21 @@ DROP VIEW IF EXISTS v_locations, v_employees, v_customers, v_services, v_invoice
 
 -- Create table Locations
 CREATE TABLE Locations (
-  id_location int AUTO_INCREMENT UNIQUE NOT NULL,
-  name varchar(45) UNIQUE NOT NULL,
-  address varchar(45) UNIQUE NOT NULL,
+  id_location INT AUTO_INCREMENT UNIQUE NOT NULL,
+  name VARCHAR(45) UNIQUE NOT NULL,
+  address VARCHAR(45) UNIQUE NOT NULL,
   PRIMARY KEY (id_location)
 );
 
 -- Create table Employees
 CREATE TABLE Employees (
-  id_employee int AUTO_INCREMENT UNIQUE NOT NULL,
-  first_name varchar(45) NOT NULL,
-  last_name varchar(45) NOT NULL,
-  date_of_birth date NOT NULL,
-  phone_number varchar(15) NOT NULL,
-  email_address varchar(45) UNIQUE NOT NULL,
-  id_location int NOT NULL,
+  id_employee INT AUTO_INCREMENT UNIQUE NOT NULL,
+  first_name VARCHAR(45) NOT NULL,
+  last_name VARCHAR(45) NOT NULL,
+  date_of_birth DATE NOT NULL,
+  phone_number VARCHAR(15) NOT NULL,
+  email_address VARCHAR(45) UNIQUE NOT NULL,
+  id_location INT NOT NULL,
   PRIMARY KEY (id_employee),
   FOREIGN KEY (id_location) REFERENCES Locations (id_location)
   ON DELETE RESTRICT ON UPDATE CASCADE
@@ -43,33 +41,33 @@ CREATE TABLE Employees (
 
 -- Create table Customers
 CREATE TABLE Customers (
-  id_customer int AUTO_INCREMENT UNIQUE NOT NULL,
-  first_name varchar(45) NOT NULL,
-  last_name varchar(45) NOT NULL,
-  date_of_birth date NOT NULL,
-  phone_number varchar(15) NOT NULL,
-  email_address varchar(45) UNIQUE,
-  address varchar(45),
+  id_customer INT AUTO_INCREMENT UNIQUE NOT NULL,
+  first_name VARCHAR(45) NOT NULL,
+  last_name VARCHAR(45) NOT NULL,
+  date_of_birth DATE NOT NULL,
+  phone_number VARCHAR(15) NOT NULL,
+  email_address VARCHAR(45) UNIQUE,
+  address VARCHAR(45),
   PRIMARY KEY (id_customer)
 );
 
 -- Create table Services
 CREATE TABLE Services (
-  id_service int AUTO_INCREMENT UNIQUE NOT NULL,
-  name varchar(45) UNIQUE NOT NULL,
-  description varchar(255),
-  price decimal(10,2) NOT NULL,
+  id_service INT AUTO_INCREMENT UNIQUE NOT NULL,
+  name VARCHAR(45) UNIQUE NOT NULL,
+  description VARCHAR(255),
+  price DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (id_service)
 );
 
 -- Create table Invoices
 CREATE TABLE Invoices (
-  id_invoice int AUTO_INCREMENT UNIQUE NOT NULL,
-  id_customer int NOT NULL,
-  id_employee int NOT NULL,
-  id_location int NOT NULL,
-  date datetime NOT NULL,
-  total decimal(10,2) NOT NULL,
+  id_invoice INT AUTO_INCREMENT UNIQUE NOT NULL,
+  id_customer INT NOT NULL,
+  id_employee INT NOT NULL,
+  id_location INT NOT NULL,
+  date DATETIME NOT NULL,
+  total DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (id_invoice),
   FOREIGN KEY (id_customer) REFERENCES Customers (id_customer)
   ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -81,10 +79,10 @@ CREATE TABLE Invoices (
 
 -- Create table Invoices_Services
 CREATE TABLE Invoices_Services (
-  id_invoice_service int AUTO_INCREMENT UNIQUE NOT NULL,
-  id_invoice int NOT NULL,
-  id_service int NOT NULL,
-  sale_price decimal(10,2) NOT NULL,
+  id_invoice_service INT AUTO_INCREMENT UNIQUE NOT NULL,
+  id_invoice INT NOT NULL,
+  id_service INT NOT NULL,
+  sale_price DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (id_invoice_service),
   FOREIGN KEY (id_invoice) REFERENCES Invoices (id_invoice)
   ON DELETE CASCADE ON UPDATE CASCADE,
@@ -177,197 +175,6 @@ VALUES (1, (SELECT id_service FROM Services WHERE name = "oil change"), 75.00),
 (5, (SELECT id_service FROM Services WHERE name = "oil change"), 75.00),
 (5, (SELECT id_service FROM Services WHERE name = "tire rotation"), 35.00),
 (5, (SELECT id_service FROM Services WHERE name = "safety check"), 45.00);
-
-/*
-* Create views for web app
-*/
-
--- Create view for Locations
-CREATE VIEW v_locations AS
-SELECT * FROM Locations;
-
--- Create view for Employees
-CREATE VIEW v_employees AS
-SELECT
-  Employees.id_employee,
-  Employees.first_name,
-  Employees.last_name,
-  DATE_FORMAT(Employees.date_of_birth, '%m/%d/%Y') AS date_of_birth,
-  Employees.phone_number,
-  Employees.email_address,
-  Locations.name AS name_location,
-  Employees.id_location
-FROM Employees
-JOIN Locations
-ON Employees.id_location = Locations.id_location
-ORDER BY Employees.id_employee;
-
--- Create view for Customers
-CREATE VIEW v_customers AS
-SELECT
-  id_customer,
-  first_name,
-  last_name,
-  DATE_FORMAT(date_of_birth, '%m/%d/%Y') AS date_of_birth,
-  phone_number,
-  email_address,
-  address
-FROM Customers;
-
--- Create view for Services
-CREATE VIEW v_services AS
-SELECT * FROM Services;
-
--- Create view for Invoices
-CREATE VIEW v_invoices AS
-SELECT
-  Invoices.id_invoice,
-  CONCAT(Customers.first_name, ' ', Customers.last_name) AS name_customer,
-  Invoices.id_customer,
-  CONCAT(Employees.first_name, ' ', Employees.last_name) AS name_employee,
-  Invoices.id_employee,
-  Locations.name AS name_location,
-  Invoices.id_location,
-  DATE_FORMAT(Invoices.date, '%m/%d/%Y %H:%i:%s') AS date,
-  Invoices.total
-FROM Invoices
-JOIN Customers
-ON Invoices.id_customer = Customers.id_customer
-JOIN Employees
-ON Invoices.id_employee = Employees.id_employee
-JOIN Locations
-ON Invoices.id_location = Locations.id_location
-ORDER BY Invoices.id_invoice;
-
--- Create view for Invoices_Services
-CREATE VIEW v_invoices_services AS
-SELECT
-  Invoices_Services.id_invoice_service,
-  Invoices_Services.id_invoice,
-  Services.name AS name_service,
-  Invoices_Services.id_service,
-  Services.price AS list_price,
-  Invoices_Services.sale_price
-FROM Invoices_Services
-JOIN Services
-ON Invoices_Services.id_service = Services.id_service
-ORDER BY Invoices_Services.id_invoice_service;
-
-/*
-* Create procedures
-*/
-DELIMITER //
-
--- Create procedure sp_show_locations
-DROP PROCEDURE IF EXISTS sp_show_locations //
-CREATE PROCEDURE sp_show_locations ()
-BEGIN
-  SELECT * FROM v_locations;
-END //
-
--- Create procedure sp_show_employees
-DROP PROCEDURE IF EXISTS sp_show_employees //
-CREATE PROCEDURE sp_show_employees ()
-BEGIN
-  SELECT * FROM v_employees;
-END //
-
--- Create procedure sp_show_customers
-DROP PROCEDURE IF EXISTS sp_show_customers //
-CREATE PROCEDURE sp_show_customers ()
-BEGIN
-  SELECT * FROM v_customers;
-END //
-
--- Create procedure sp_show_services
-DROP PROCEDURE IF EXISTS sp_show_services //
-CREATE PROCEDURE sp_show_services ()
-BEGIN
-  SELECT * FROM v_services;
-END //
-
--- Create procedure sp_show_invoices
-DROP PROCEDURE IF EXISTS sp_show_invoices //
-CREATE PROCEDURE sp_show_invoices ()
-BEGIN
-  SELECT * FROM v_invoices;
-END //
-
--- Create procedure sp_show_invoices_services
-DROP PROCEDURE IF EXISTS sp_show_invoices_services //
-CREATE PROCEDURE sp_show_invoices_services ()
-BEGIN
-  SELECT * FROM v_invoices_services;
-END //
-
--- Create procedure sp_find_location
-DROP PROCEDURE IF EXISTS sp_find_location //
-CREATE PROCEDURE sp_find_location (
-  IN input_id INT
-)
-BEGIN
-  SELECT * FROM v_locations WHERE id_location = input_id;
-END //
-
--- Create procedure sp_find_employee
-DROP PROCEDURE IF EXISTS sp_find_employee //
-CREATE PROCEDURE sp_find_employee (
-  IN input_id INT
-)
-BEGIN
-  SELECT * FROM v_employees WHERE id_employee = input_id;
-END //
-
--- Create procedure sp_find_customer
-DROP PROCEDURE IF EXISTS sp_find_customer //
-CREATE PROCEDURE sp_find_customer (
-  IN input_id INT
-)
-BEGIN
-  SELECT * FROM v_customers WHERE id_customer = input_id;
-END //
-
--- Create procedure sp_find_service
-DROP PROCEDURE IF EXISTS sp_find_service //
-CREATE PROCEDURE sp_find_service (
-  IN input_id INT
-)
-BEGIN
-  SELECT * FROM v_services WHERE id_service = input_id;
-END //
-
--- Create procedure sp_find_invoice
-DROP PROCEDURE IF EXISTS sp_find_invoice //
-CREATE PROCEDURE sp_find_invoice (
-  IN input_id INT
-)
-BEGIN
-  SELECT * FROM v_invoices WHERE id_invoice = input_id;
-END //
-
--- Create procedure sp_find_invoice_service
-DROP PROCEDURE IF EXISTS sp_find_invoice_service //
-CREATE PROCEDURE sp_find_invoice_service (
-  IN input_id INT
-)
-BEGIN
-  SELECT
-    v_invoices_services.id_invoice_service,
-    v_invoices.name_customer,
-    v_invoices.name_employee,
-    v_invoices.date,
-    v_invoices_services.id_invoice,
-    v_invoices_services.name_service,
-    v_invoices_services.id_service,
-    v_invoices_services.list_price,
-    v_invoices_services.sale_price
-    FROM v_invoices_services
-    JOIN v_invoices
-    ON v_invoices_services.id_invoice = v_invoices.id_invoice
-    WHERE v_invoices_services.id_invoice_service = input_id;
-END //
-
-DELIMITER ;
 
 -- Finish
 SET FOREIGN_KEY_CHECKS = 1;

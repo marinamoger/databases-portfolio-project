@@ -48,11 +48,15 @@ a {
 a:hover {
   color: #070707;
   text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
 a:active, a:focus {
   color: #070707;
   text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
 h1 {
@@ -243,4 +247,30 @@ form input:active, form select:active {
 #update_description,
 #create_description {
   width: 30em;
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+#reset_button {
+  font-size: 1.1em;
+  color: #7E7E7E;
+  padding: 5px 10px 4px 10px;
+  background-color: #F1F1F1;
+  border: 0px solid #7E7E7E;
+  border-radius: 6px;
+}
+
+#reset_button:hover {
+  color: #070707;
+  background-color: #FFFFFF;
+  border: 0px solid #242424;
+}
+
+#reset_button:focus,
+#reset_button:active {
+  background-color: #F1F1F1;
 }
