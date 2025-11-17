@@ -1,5 +1,5 @@
 /*
-* Project Data Definition Queries
+* Project Procedure Language Queries
 * Project Name: Old Mike’s Car Full-Service Transaction Management System
 * Project Group: 45
 * Group Members: Lei Feng, Marina Moger
