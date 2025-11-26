@@ -15,7 +15,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP VIEW IF EXISTS v_locations, v_employees, v_customers, v_services, v_invoices, v_invoices_services;
 
 /*
-* Create views for web app
+* Create Views for Web App
 */
 
 -- Create view for Locations
@@ -90,10 +90,12 @@ ON Invoices_Services.id_service = Services.id_service
 ORDER BY Invoices_Services.id_invoice_service;
 
 /*
-* Create procedures
+* Create Procedures
 */
 
 DELIMITER //
+
+-- RESET Procedure
 
 -- Create prodedure sp_load_database
 DROP PROCEDURE IF EXISTS sp_load_database //
@@ -249,6 +251,8 @@ BEGIN
   SET FOREIGN_KEY_CHECKS = 1;
 END //
 
+-- SELECT Procedures
+
 -- Create procedure sp_show_locations
 DROP PROCEDURE IF EXISTS sp_show_locations //
 CREATE PROCEDURE sp_show_locations ()
@@ -357,6 +361,8 @@ BEGIN
     ON v_invoices_services.id_invoice = v_invoices.id_invoice
     WHERE v_invoices_services.id_invoice_service = input_id;
 END //
+
+-- CREATE Procedures
 
 -- Create procedure sp_create_location
 DROP PROCEDURE IF EXISTS sp_create_location //
@@ -471,6 +477,234 @@ BEGIN
         WHERE id_invoice = p_id_invoice
       )
     WHERE id_invoice = p_id_invoice;
+  COMMIT;
+END //
+
+-- UPDATE Procedures
+
+-- Create procedure sp_update_location
+DROP PROCEDURE IF EXISTS sp_update_location //
+CREATE PROCEDURE sp_update_location (
+  IN p_id_location INT,
+  IN p_name VARCHAR(45),
+  IN p_address VARCHAR(45)
+)
+BEGIN
+  -- Update a row in Locations
+  UPDATE Locations
+  SET name = p_name,
+    address = p_address
+  WHERE id_location = p_id_location;
+END //
+
+-- Create procedure sp_update_employee
+DROP PROCEDURE IF EXISTS sp_update_employee //
+CREATE PROCEDURE sp_update_employee (
+  IN p_id_employee INT,
+  IN p_first_name VARCHAR(45),
+  IN p_last_name VARCHAR(45),
+  IN p_date_of_birth DATE,
+  IN p_phone_number VARCHAR(15),
+  IN p_email_address VARCHAR(45),
+  IN p_id_location INT
+)
+BEGIN
+  -- Update a row in Employees
+  UPDATE Employees
+  SET first_name = p_first_name,
+    last_name = p_last_name,
+    date_of_birth = p_date_of_birth,
+    phone_number = p_phone_number,
+    email_address = p_email_address,
+    id_location = p_id_location
+  WHERE id_employee = p_id_employee;
+END //
+
+-- Create procedure sp_update_customer
+DROP PROCEDURE IF EXISTS sp_update_customer //
+CREATE PROCEDURE sp_update_customer (
+  IN p_id_customer INT,
+  IN p_first_name VARCHAR(45),
+  IN p_last_name VARCHAR(45),
+  IN p_date_of_birth DATE,
+  IN p_phone_number VARCHAR(15),
+  IN p_email_address VARCHAR(45),
+  IN p_address VARCHAR(45)
+)
+BEGIN
+  -- Update a row in Customers
+  UPDATE Customers
+  SET first_name = p_first_name,
+    last_name = p_last_name,
+    date_of_birth = p_date_of_birth,
+    phone_number = p_phone_number,
+    email_address = p_email_address,
+    address = p_address
+  WHERE id_customer = p_id_customer;
+END //
+
+-- Create procedure sp_update_service
+DROP PROCEDURE IF EXISTS sp_update_service //
+CREATE PROCEDURE sp_update_service (
+  IN p_id_service INT,
+  IN p_name VARCHAR(45),
+  IN p_description VARCHAR(255),
+  IN p_price DECIMAL(10,2)
+)
+BEGIN
+  -- Update a row in Services
+  UPDATE Services
+  SET name = p_name,
+    description = p_description,
+    price = p_price
+  WHERE id_service = p_id_service;
+END //
+
+-- Create procedure sp_update_invoice
+DROP PROCEDURE IF EXISTS sp_update_invoice //
+CREATE PROCEDURE sp_update_invoice (
+  IN p_id_invoice INT,
+  IN p_id_customer INT,
+  IN p_id_employee INT,
+  IN p_id_location INT,
+  IN p_date DATETIME
+)
+BEGIN
+  -- Update a row in Invoices
+  UPDATE Invoices
+  SET id_customer = p_id_customer,
+    id_employee = p_id_employee,
+    id_location = p_id_location,
+    date = p_date,
+    total = (
+      SELECT SUM(sale_price)
+      FROM Invoices_Services
+      WHERE id_invoice = p_id_invoice
+    )
+  WHERE id_invoice = p_id_invoice;
+END //
+
+-- Create procedure sp_update_invoice_service
+DROP PROCEDURE IF EXISTS sp_update_invoice_service //
+CREATE PROCEDURE sp_update_invoice_service (
+  IN p_id_invoice_service INT,
+  IN p_id_invoice INT,
+  IN p_id_service INT,
+  IN p_sale_price DECIMAL(10,2)
+)
+BEGIN
+  DECLARE stored_id_invoice INT;
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    SELECT 'UPDATE ERROR!' AS result;
+    ROLLBACK;
+  END;
+  START TRANSACTION;
+    -- Store the original id_invoice
+    SELECT id_invoice INTO stored_id_invoice
+    FROM Invoices_Services
+    WHERE id_invoice_service = p_id_invoice_service; 
+    -- Update a row in Invoices_Services and update the total in Invoices
+    UPDATE Invoices_Services
+    SET id_invoice = p_id_invoice,
+      id_service = p_id_service,
+      sale_price = IFNULL(p_sale_price, (SELECT price FROM Services WHERE id_service = p_id_service))
+    WHERE id_invoice_service = p_id_invoice_service;
+    -- Update the total in Invoices
+    UPDATE Invoices
+    SET total = (
+        SELECT SUM(sale_price)
+        FROM Invoices_Services
+        WHERE id_invoice = p_id_invoice
+      )
+    WHERE id_invoice = p_id_invoice;
+    -- Update the total in original invoice if id_invoice changed
+    IF stored_id_invoice != p_id_invoice THEN
+      UPDATE Invoices
+      SET total = (
+          SELECT IFNULL(SUM(sale_price), 0)
+          FROM Invoices_Services
+          WHERE id_invoice = stored_id_invoice
+        )
+      WHERE id_invoice = stored_id_invoice;
+    END IF;
+  COMMIT;
+END //
+
+-- DELETE Procedures
+
+-- Create procedure sp_delete_location
+DROP PROCEDURE IF EXISTS sp_delete_location //
+CREATE PROCEDURE sp_delete_location (
+  IN p_id_location INT
+)
+BEGIN
+  DELETE FROM Locations WHERE id_location = p_id_location;
+END //
+
+-- Create procedure sp_delete_employee
+DROP PROCEDURE IF EXISTS sp_delete_employee //
+CREATE PROCEDURE sp_delete_employee (
+  IN p_id_employee INT
+)
+BEGIN
+  DELETE FROM Employees WHERE id_employee = p_id_employee;
+END //
+
+-- Create procedure sp_delete_customer
+DROP PROCEDURE IF EXISTS sp_delete_customer //
+CREATE PROCEDURE sp_delete_customer (
+  IN p_id_customer INT
+)
+BEGIN
+  DELETE FROM Customers WHERE id_customer = p_id_customer;
+END //
+
+-- Create procedure sp_delete_service
+DROP PROCEDURE IF EXISTS sp_delete_service //
+CREATE PROCEDURE sp_delete_service (
+  IN p_id_service INT
+)
+BEGIN
+  DELETE FROM Services WHERE id_service = p_id_service;
+END //
+
+-- Create procedure sp_delete_invoice
+DROP PROCEDURE IF EXISTS sp_delete_invoice //
+CREATE PROCEDURE sp_delete_invoice (
+  IN p_id_invoice INT
+)
+BEGIN
+  DELETE FROM Invoices WHERE id_invoice = p_id_invoice;
+END //
+
+-- Create procedure sp_delete_invoice_service
+DROP PROCEDURE IF EXISTS sp_delete_invoice_service //
+CREATE PROCEDURE sp_delete_invoice_service (
+  IN p_id_invoice_service INT
+)
+BEGIN
+  DECLARE stored_id_invoice INT;
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    SELECT 'DELETE ERROR!' AS result;
+    ROLLBACK;
+  END;
+  START TRANSACTION;
+    -- Store the id_invoice
+    SELECT id_invoice INTO stored_id_invoice
+    FROM Invoices_Services
+    WHERE id_invoice_service = p_id_invoice_service;
+    -- Delete a row in Invoices_Services
+    DELETE FROM Invoices_Services WHERE id_invoice_service = p_id_invoice_service;
+    -- Update the total in Invoices
+    UPDATE Invoices
+    SET total = (
+      SELECT IFNULL(SUM(sale_price), 0)
+      FROM Invoices_Services
+      WHERE id_invoice = stored_id_invoice
+      )
+    WHERE id_invoice = stored_id_invoice;
   COMMIT;
 END //
 

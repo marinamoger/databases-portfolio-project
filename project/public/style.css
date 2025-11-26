@@ -60,18 +60,18 @@ a:active, a:focus {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 1.6em;
   color: #242424;
   margin: 40px 0px 10px 0px;
 }
 
 h2 {
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: #242424;
 }
 
 p {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 table {
@@ -255,7 +255,7 @@ form input:active, form select:active {
   gap: 20px;
 }
 
-#reset_button {
+.page_button {
   font-size: 1.1em;
   color: #7E7E7E;
   padding: 5px 10px 4px 10px;
@@ -264,13 +264,13 @@ form input:active, form select:active {
   border-radius: 6px;
 }
 
-#reset_button:hover {
+.page_button:hover {
   color: #070707;
   background-color: #FFFFFF;
   border: 0px solid #242424;
 }
 
-#reset_button:focus,
-#reset_button:active {
+.page_button:focus,
+.page_button:active {
   background-color: #F1F1F1;
 }

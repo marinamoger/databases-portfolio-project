@@ -123,7 +123,7 @@ WHERE id_invoice = @create_id_invoice;
 -- Update a row in Locations
 UPDATE Locations
 SET name = @update_name,
-  address = @update_address,
+  address = @update_address
 WHERE id_location = @update_id_location;
 
 -- Update a row in Employees
@@ -133,7 +133,7 @@ SET first_name = @update_first_name,
   date_of_birth = @update_date_of_birth,
   phone_number = @update_phone_number,
   email_address = @update_email_address,
-  id_location = @update_id_location,
+  id_location = @update_id_location
 WHERE id_employee = @update_id_employee;
 
 -- Update a row in Customers
@@ -143,14 +143,14 @@ SET first_name = @update_first_name,
   date_of_birth = @update_date_of_birth,
   phone_number = @update_phone_number,
   email_address = @update_email_address,
-  address = @update_address,
+  address = @update_address
 WHERE id_customer = @update_id_customer;
 
 -- Update a row in Services
 UPDATE Services
 SET name = @update_name,
   description = @update_description,
-  price = @update_price,
+  price = @update_price
 WHERE id_service = @update_id_service;
 
 -- Update a row in Invoices
@@ -168,20 +168,33 @@ SET id_customer = @update_id_customer,
 WHERE id_invoice = @update_id_invoice;
 
 -- Update a row in Invoices_Service and update the total in Invoices
+SELECT id_invoice INTO @stored_id_invoice
+FROM Invoices_Services
+WHERE id_invoice_service = @update_id_invoice_service;
+
 UPDATE Invoices_Services
 SET id_invoice = @update_id_invoice,
   id_service = @update_id_service,
-  sale_price = IFNULL(@update_sale_price, (SELECT sale_price FROM Services WHERE id_service = @update_id_service))
+  sale_price = IFNULL(@update_sale_price, (SELECT price FROM Services WHERE id_service = @update_id_service))
 WHERE id_invoice_service = @update_id_invoice_service;
 
 UPDATE Invoices
 SET total = (
     SELECT SUM(sale_price)
     FROM Invoices_Services
-    GROUP BY id_invoice
     WHERE id_invoice = @update_id_invoice
   )
 WHERE id_invoice = @update_id_invoice;
+
+IF @stored_id_invoice != @update_id_invoice THEN
+  UPDATE Invoices
+  SET total = (
+      SELECT IFNULL(SUM(sale_price), 0)
+      FROM Invoices_Services
+      WHERE id_invoice = @stored_id_invoice
+    )
+  WHERE id_invoice = @stored_id_invoice;
+END IF;
 
 /*
 * DELETE
@@ -197,7 +210,7 @@ DELETE FROM Employees WHERE id_employee = @delete_id_employee;
 DELETE FROM Customers WHERE id_customer = @delete_id_customer;
 
 -- Delete a row in Services
-DELETE FROM Service WHERE id_service = @delete_id_service;
+DELETE FROM Services WHERE id_service = @delete_id_service;
 
 -- Delete a row in Invoices
 DELETE FROM Invoices WHERE id_invoice = @delete_id_invoice;
@@ -211,9 +224,8 @@ DELETE FROM Invoices_Services WHERE id_invoice_service = @delete_id_invoice_serv
 
 UPDATE Invoices
 SET total = (
-  SELECT SUM(sale_price)
+  SELECT IFNULL(SUM(sale_price), 0)
   FROM Invoices_Services
-  GROUP BY id_invoice
   WHERE id_invoice = @stored_id_invoice
   )
 WHERE id_invoice = @stored_id_invoice;

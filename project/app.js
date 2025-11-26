@@ -34,7 +34,7 @@ const db = require('./database/db-connector');
 const { engine } = require('express-handlebars'); // Import express-handlebars engine
 const e = require('express');
 app.engine('.hbs', engine({ extname: '.hbs' })); // Create instance of handlebars
-app.set('view engine', '.hbs'); // Use handlebars engin for *.hbs files
+app.set('view engine', '.hbs'); // Use handlebars engine for *.hbs files
 
 /**
  * READ route handlers
@@ -596,6 +596,12 @@ app.post('/invoice_service/create', async (req, res) => {
 // UPDATE: update location using POST/location/update
 app.post('/location/update', async (req, res) => {
   try {
+    const id_location = req.body.update_id_location;
+    const name = req.body.update_name;
+    const address = req.body.update_address;
+    const query = `CALL sp_update_location(?, ?, ?);`;
+    await db.query(query, [id_location, name, address]);
+    console.log(`UPDATE location: id=${id_location} name=${name} address=${address}`);
     res.redirect('/locations');
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -607,6 +613,16 @@ app.post('/location/update', async (req, res) => {
 // UPDATE: update employee using POST/employee/update
 app.post('/employee/update', async (req, res) => {
   try {
+    const id_employee = req.body.update_id_employee;
+    const first_name = req.body.update_first_name;
+    const last_name = req.body.update_last_name;
+    const date_of_birth = req.body.update_date_of_birth;
+    const phone_number = formatPhoneNumber(req.body.update_phone_number);
+    const email_address = req.body.update_email_address;
+    const id_location = req.body.update_id_location;
+    const query = `CALL sp_update_employee(?, ?, ?, ?, ?, ?, ?);`;
+    await db.query(query, [id_employee, first_name, last_name, date_of_birth, phone_number, email_address, id_location]);
+    console.log(`UPDATE employee: id=${id_employee} first_name=${first_name} last_name=${last_name} date_of_birth=${date_of_birth} phone_number=${phone_number} email_address=${email_address} id_location=${id_location}`);
     res.redirect('/employees');
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -618,6 +634,16 @@ app.post('/employee/update', async (req, res) => {
 // UPDATE: update customer using POST/customer/update
 app.post('/customer/update', async (req, res) => {
   try {
+    const id_customer = req.body.update_id_customer;
+    const first_name = req.body.update_first_name;
+    const last_name = req.body.update_last_name;
+    const date_of_birth = req.body.update_date_of_birth;
+    const phone_number = formatPhoneNumber(req.body.update_phone_number);
+    const email_address = checkEmptyString(req.body.update_email_address);
+    const address = checkEmptyString(req.body.update_address);
+    const query = `CALL sp_update_customer(?, ?, ?, ?, ?, ?, ?);`;
+    await db.query(query, [id_customer, first_name, last_name, date_of_birth, phone_number, email_address, address]);
+    console.log(`UPDATE customer: id=${id_customer} first_name=${first_name} last_name=${last_name} date_of_birth=${date_of_birth} phone_number=${phone_number} email_address=${email_address} address=${address}`);
     res.redirect('/customers');
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -629,6 +655,13 @@ app.post('/customer/update', async (req, res) => {
 // UPDATE: update service using POST/service/update
 app.post('/service/update', async (req, res) => {
   try {
+    const id_service = req.body.update_id_service;
+    const name = req.body.update_name;
+    const description = req.body.update_description;
+    const price = req.body.update_price;
+    const query = `CALL sp_update_service(?, ?, ?, ?);`;
+    await db.query(query, [id_service, name, description, price]);
+    console.log(`UPDATE service: id=${id_service} name=${name} description=${description} price=${price}`);
     res.redirect('/services');
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -640,6 +673,14 @@ app.post('/service/update', async (req, res) => {
 // UPDATE: update invoice using POST/invoice/update
 app.post('/invoice/update', async (req, res) => {
   try {
+    const id_invoice = req.body.update_id_invoice;
+    const id_customer = req.body.update_id_customer;
+    const id_employee = req.body.update_id_employee;
+    const id_location = req.body.update_id_location;
+    const date = req.body.update_date;
+    const query = `CALL sp_update_invoice(?, ?, ?, ?, ?);`;
+    await db.query(query, [id_invoice, id_customer, id_employee, id_location, date]);
+    console.log(`UPDATE invoice: id=${id_invoice} id_customer=${id_customer} id_employee=${id_employee} id_location=${id_location} date=${date}`);
     res.redirect('/invoices');
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -651,6 +692,13 @@ app.post('/invoice/update', async (req, res) => {
 // UPDATE: update invoice_service using POST/invoice_service/update
 app.post('/invoice_service/update', async (req, res) => {
   try {
+    const id_invoice_service = req.body.update_id_invoice_service;
+    const id_invoice = req.body.update_id_invoice;
+    const id_service = req.body.update_id_service;
+    const sale_price = checkEmptyString(req.body.update_sale_price);
+    const query = `CALL sp_update_invoice_service(?, ?, ?, ?);`;
+    await db.query(query, [id_invoice_service, id_invoice, id_service, sale_price]);
+    console.log(`UPDATE invoice_service: id=${id_invoice_service} id_invoice=${id_invoice} id_service=${id_service} sale_price=${sale_price}`);
     res.redirect('/invoices');
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -666,50 +714,90 @@ app.post('/invoice_service/update', async (req, res) => {
 // DELETE: delete location using POST/location/delete
 app.post('/location/delete', async (req, res) => {
   try {
+    const id_location = req.body.delete_id_location;
+    const query = `CALL sp_delete_location(?);`;
+    await db.query(query, [id_location]);
+    console.log(`DELETE location: id=${id_location}`);
     res.redirect('/locations');
   } catch (err) {
-    console.error('Error rendering page:', err);
-    // Send a generic error message to the browser
-    res.status(500).send('An error occurred while executing the database queries.');
+    if (err.errno === 1451) {
+      console.error('Error delete location: foreign key constraint exist.');
+      res.render('error/error_location');
+    } else {
+      console.error('Error rendering page:', err);
+      // Send a generic error message to the browser
+      res.status(500).send('An error occurred while executing the database queries.');
+    }
   }
 });
 
 // DELETE: delete employee using POST/employee/delete
 app.post('/employee/delete', async (req, res) => {
   try {
+    const id_employee = req.body.delete_id_employee;
+    const query = `CALL sp_delete_employee(?);`;
+    await db.query(query, [id_employee]);
+    console.log(`DELETE employee: id=${id_employee}`);
     res.redirect('/employees');
   } catch (err) {
-    console.error('Error rendering page:', err);
-    // Send a generic error message to the browser
-    res.status(500).send('An error occurred while executing the database queries.');
+    if (err.errno === 1451) {
+      console.error('Error delete employee: foreign key constraint exist.');
+      res.render('error/error_employee');
+    } else {
+      console.error('Error rendering page:', err);
+      // Send a generic error message to the browser
+      res.status(500).send('An error occurred while executing the database queries.');
+    }
   }
 });
 
 // DELETE: delete customer using POST/customer/delete
 app.post('/customer/delete', async (req, res) => {
   try {
+    const id_customer = req.body.delete_id_customer;
+    const query = `CALL sp_delete_customer(?);`;
+    await db.query(query, [id_customer]);
+    console.log(`DELETE customer: id=${id_customer}`);
     res.redirect('/customers');
   } catch (err) {
-    console.error('Error rendering page:', err);
-    // Send a generic error message to the browser
-    res.status(500).send('An error occurred while executing the database queries.');
+    if (err.errno === 1451) {
+      console.error('Error delete customer: foreign key constraint exist.');
+      res.render('error/error_customer');
+    } else {
+      console.error('Error rendering page:', err);
+      // Send a generic error message to the browser
+      res.status(500).send('An error occurred while executing the database queries.');
+    }
   }
 });
 
 // DELETE: delete service using POST/service/delete
 app.post('/service/delete', async (req, res) => {
   try {
+    const id_service = req.body.delete_id_service;
+    const query = `CALL sp_delete_service(?);`;
+    await db.query(query, [id_service]);
+    console.log(`DELETE service: id=${id_service}`);
     res.redirect('/services');
   } catch (err) {
-    console.error('Error rendering page:', err);
-    // Send a generic error message to the browser
-    res.status(500).send('An error occurred while executing the database queries.');
+    if (err.errno === 1451) {
+      console.log('Error delete service: foreign key constraint exist.');
+      res.render('error/error_service');
+    } else {
+      console.error('Error rendering page:', err);
+      // Send a generic error message to the browser
+      res.status(500).send('An error occurred while executing the database queries.');
+    }
   }
 });
 
 // DELETE: delete invoice using POST/invoice/delete
 app.post('/invoice/delete', async (req, res) => {
   try {
+    const id_invoice = req.body.delete_id_invoice;
+    const query = `CALL sp_delete_invoice(?);`;
+    await db.query(query, [id_invoice]);
+    console.log(`DELETE invoice: id=${id_invoice}`);
     res.redirect('/invoices');
   } catch (err) {
     console.error('Error rendering page:', err);
@@ -721,6 +809,10 @@ app.post('/invoice/delete', async (req, res) => {
 // DELETE: delete invoice_service using POST/invoice_service/delete
 app.post('/invoice_service/delete', async (req, res) => {
   try {
+    const id_invoice_service = req.body.delete_id_invoice_service;
+    const query = `CALL sp_delete_invoice_service(?);`;
+    await db.query(query, [id_invoice_service]);
+    console.log(`DELETE invoice_service: id=${id_invoice_service}`);
     res.redirect('/invoices');
   } catch (err) {
     console.error('Error rendering page:', err);
