@@ -2,7 +2,7 @@
 
 ## Project Information:
 Project Name: Old Mike's Car Full-Service Transaction Management System  
-Project Group 45  
+Project Group: 45  
 Group Members: Lei Feng, Marina Moger  
 URL: http://classwork.engr.oregonstate.edu:1045/  
 
