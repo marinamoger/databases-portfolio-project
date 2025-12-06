@@ -15,10 +15,10 @@ Citation: All code in this file without citation is original.
       <input type="hidden" name="update_id_invoice" id="update_id_invoice" value="{{invoice.id_invoice}}">
       <thead>
         <tr>
-          <th>Customer ID</th>
-          <th>Employee ID</th>
-          <th>Location ID</th>
-          <th>Date</th>
+          <th>Customer ID *</th>
+          <th>Employee ID *</th>
+          <th>Location ID *</th>
+          <th>Date *</th>
           <th colspan="2" style="text-align: center;">Action</th>
         </tr>
       </thead>
@@ -61,6 +61,7 @@ Citation: All code in this file without citation is original.
       </tbody>
     </table>
   </form>
+  <p>Note: * indicates required fields.</p>
 </div>
 {{else}}
 <p>No such invoice existed.</p>

@@ -3,7 +3,7 @@
 * Project Name: Old Mike’s Car Full-Service Transaction Management System
 * Project Group: 45
 * Group Members: Lei Feng, Marina Moger
-* Description: Data Manipulation Queries for the project web app.
+* Description: Data Manipulation Queries for the CS340 Portfolio Project.
 * Citation: All code in this file without citation is original.
 */
 

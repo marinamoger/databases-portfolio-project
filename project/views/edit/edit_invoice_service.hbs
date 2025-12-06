@@ -15,8 +15,8 @@ Citation: All code in this file without citation is original.
       <input type="hidden" name="update_id_invoice_service" id="update_id_invoice_service" value="{{invoice_service.id_invoice_service}}">
       <thead>
         <tr>
-          <th>Invoice ID</th>
-          <th>Service ID</th>
+          <th>Invoice ID *</th>
+          <th>Service ID *</th>
           <th>Sale Price</th>
           <th colspan="2" style="text-align: center;">Action</th>
         </tr>
@@ -50,6 +50,7 @@ Citation: All code in this file without citation is original.
       </tbody>
     </table>
   </form>
+  <p>Note: * indicates required fields.</p>
 </div>
 {{else}}
 <p>No such invoice detail existed.</p>

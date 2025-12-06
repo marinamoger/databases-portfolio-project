@@ -173,6 +173,7 @@ table button {
   border-width: 3px;
   border-color: #FFFFFF86 #CFCFCF86 #B1B1B186 #CFCFCF86;
   background-color: transparent;
+  transition: all 0.2s ease-in-out;
 }
 
 table button:hover {
@@ -208,6 +209,7 @@ form input, form select {
   outline: none;
   padding: 0px;
   margin: 0px;
+  transition: all 0.2s ease-in-out;
 }
 
 form input {

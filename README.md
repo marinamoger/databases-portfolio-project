@@ -1,3 +1,12 @@
+# CS340 Portfolio Project
+
+## Project Information:
+Project Name: Old Mike's Car Full-Service Transaction Management System
+Project Group 45
+Group Members: Lei Feng, Marina Moger
+URL: http://classwork.engr.oregonstate.edu:1045/
+
+## Use Guide:
 You need to rebuild the app before running it. To do so, please follow the steps below:
 1. Clone/copy the project folder.  
 2. Open a Terminal and move into the project folder.  

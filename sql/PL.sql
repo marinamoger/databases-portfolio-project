@@ -3,8 +3,9 @@
 * Project Name: Old Mike’s Car Full-Service Transaction Management System
 * Project Group: 45
 * Group Members: Lei Feng, Marina Moger
-* Description: Create views and stored procedures for the project database.
+* Description: Procedural Language Queries for the CS340 Portfolio Project.
 * Citation: All code in this file without citation is original.
+*           No AI tool is used.
 * Import: Please drop all existing views and stored procedures before
 *         importing this file via phpMyAdmin or the MySQL CLI using the
 *         source query.
