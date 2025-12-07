@@ -6,6 +6,11 @@ Project Group: 45
 Group Members: Lei Feng, Marina Moger  
 URL: http://classwork.engr.oregonstate.edu:1045/  
 
+## Citation:
+Some code is adapted from Canvas CS340 Course Module.  
+Source URL: https://canvas.oregonstate.edu/courses/2017561/pages/exploration-web-application-technology-2?module_item_id=25645131  
+Source URL: https://canvas.oregonstate.edu/courses/2017561/pages/exploration-implementing-cud-operations-in-your-app?module_item_id=25645149  
+
 ## Use Guide:
 You need to rebuild the app before running it. To do so, please follow the steps below:
 1. Clone/copy the project folder.  
