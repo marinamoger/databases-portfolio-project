@@ -13,8 +13,8 @@ Source URL: https://canvas.oregonstate.edu/courses/2017561/pages/exploration-imp
 
 ## Use Guide:
 You need to rebuild the app before running it. To do so, please follow the steps below:
-1. Clone/copy the project folder.  
-2. Open a Terminal and move into the project folder.  
+1. Clone/copy the `project` folder.  
+2. Open a Terminal and move into the `project` folder.  
 3. Run `npm init`.  
 4. Run `npm install mysql2 express nodemon forever express-handlebars`.  
 5. Open the newly created `package.json` file, under the scripts section, replace the `test` script with the following:
@@ -27,7 +27,7 @@ You need to rebuild the app before running it. To do so, please follow the steps
     },
     ```
 
-6. In database/db-connector.js, change the following items:
+6. In `database/db-connector.js`, change the following items:
 
     ```js
     host              : 'classmysql.engr.oregonstate.edu',
@@ -37,7 +37,7 @@ You need to rebuild the app before running it. To do so, please follow the steps
     ```
 
    You can also use your local server and set these correspondingly.
-7. In app.js, change the following item:  
+7. In `app.js`, change the following item:  
 
     ```js
     const PORT = YOUR_PORT_NUM; // change YOUR_PORT_NUM to the port number your want to use
