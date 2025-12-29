@@ -7,6 +7,7 @@ Project Name: Old Mike's Car Full-Service Transaction Management System
 Project Group: 45  
 Group Members: Lei Feng, Marina Moger  
 URL: http://classwork.engr.oregonstate.edu:1045/  
+Description: This project uses a normalized MySQL relational database designed to support the operations of a multi-location automotive service business. The schema includes entities for locations, employees, customers, services, and invoices, with invoices serving as the central transactional record through foreign key relationships. Services are linked to invoices using a junction table to support many-to-many relationships while preserving data integrity. All database interactions are performed through stored procedures, centralizing business logic and enforcing consistent, reliable CRUD operations across the system.
 
 ## Citation:
 Some code is adapted from Canvas CS340 Course Module.  
